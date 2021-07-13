@@ -79,7 +79,7 @@ sed 's/\t/ /g' tmp2 > FoldX_scores_ddg
 ./physicochemical_class_change.sh FoldX_scores_ddg
 
 #add succ_tag as failure or success
-awk '{print $9}' FoldX_scores_ddg > tmp
+awk '{print $8}' FoldX_scores_ddg > tmp
 sed 1d tmp > succ_column
 cat succ_column | awk '{ if ( $1 == 0 ) {print "failure"} else {print "success"}}' > succ_tag
 echo "success_tag" > header
@@ -92,6 +92,6 @@ rm *tag *_column *_resi MUT WT header tmp* enriched* MD RD data depleted* volume
 #Select columns except FoldX_score_MUT and FoldX_score_WT
 
 awk '{print $1,$2,$3,$4,$7,$8,$9,$10,$11,$12,$13}' FoldX_scores_ddg > FoldX_Prepared_dataset
-sed 's/ /,/g' FoldX_Prepated_dataset > FoldX_Prepated_dataset.csv
+sed 's/ /,/g' FoldX_Prepared_dataset > FoldX_Prepared_dataset.csv
 
 rm FoldX_scores_ddg FoldX_Prepared_dataset
