@@ -92,4 +92,6 @@ rm *tag *_column *_resi MUT WT header tmp* enriched* MD RD data depleted* volume
 #Select columns except FoldX_score_MUT and FoldX_score_WT
 
 awk '{print $1,$2,$3,$4,$7,$8,$9,$10,$11,$12,$13}' FoldX_scores_ddg > FoldX_Prepared_dataset
-rm FoldX_scores_ddg
+sed 's/ /,/g' FoldX_Prepated_dataset > FoldX_Prepated_dataset.csv
+
+rm FoldX_scores_ddg FoldX_Prepared_dataset

@@ -80,5 +80,6 @@ mv tmp MutaBind2_scores_ddg
 
 #select desired columns
 awk '{print $1,$2,$3,$4,$5,$8,$9,$10,$11,$12,$13}' MutaBind2_scores_ddg > MutaBind2_Prepared_dataset
+sed 's/ /,/g' MutaBind2_Prepared_dataset > MutaBind2_Prepared_dataset.csv
 
-rm succ_column succ_tag new_column volume_change enriched* depleted* MD RD mutabind2 All_scores_Mutabind2* header* add_header new_header data Mutabind2_scores MutaBind2_scores_ddg
+rm MutaBind2_Prepared_dataset succ_column succ_tag new_column volume_change enriched* depleted* MD RD mutabind2 All_scores_Mutabind2* header* add_header new_header data Mutabind2_scores MutaBind2_scores_ddg

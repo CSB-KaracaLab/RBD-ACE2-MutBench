@@ -84,6 +84,7 @@ paste -d' ' FoldXwater_scores_ddg new_column > tmp
 #Select columns except FoldX_score_MUT and FoldX_score_WT
 
 awk '{print $1,$2,$3,$4,$7,$8,$9,$10,$11,$12,$13}' tmp > FoldXwater_Prepared_dataset
+sed 's/ /,/g' FoldXwater_Prepared_dataset > FoldXwater_Prepared_dataset.csv
 
-rm FoldXwater_scores* volume_change tmp* header RD MD enriched* depleted* DDG DG_MUT_WT succ* new*
+rm FoldXwater_Prepared_dataset FoldXwater_scores* volume_change tmp* header RD MD enriched* depleted* DDG DG_MUT_WT succ* new*
 

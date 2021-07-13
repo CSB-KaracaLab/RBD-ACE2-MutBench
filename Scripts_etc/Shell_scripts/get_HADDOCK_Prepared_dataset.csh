@@ -114,4 +114,6 @@ mv tmp HADDOCK_scores_ddg
 #select desired columns
 awk '{print $1,$2,$3,$4,$6,$7,$12,$13,$14,$15,$16}' HADDOCK_scores_ddg > HADDOCK_Prepared_dataset
 
-rm data volume_change HADDOCK_scores_ddg ddg_* HADDOCK_scores_mut *_resi *changes *_column tmp* enriched MD RD depleted enriched_success_rate *header *tag depleted_success_rate HADDOCK_scores
+sed 's/ /,/g' HADDOCK_Prepared_dataset > HADDOCK_Prepared_dataset.csv
+
+rm HADDOCK_Prepared_dataset data volume_change HADDOCK_scores_ddg ddg_* HADDOCK_scores_mut *_resi *changes *_column tmp* enriched MD RD depleted enriched_success_rate *header *tag depleted_success_rate HADDOCK_scores

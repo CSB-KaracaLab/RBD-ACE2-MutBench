@@ -72,5 +72,6 @@ echo "success_tag" > header
 cat header succ_tag > new_column
 paste -d' ' SSIPe_scores_ddg new_column > tmp
 mv tmp SSIPe_Prepared_dataset
+sed 's/ /,/g' SSIPe_Prepared_dataset > SSIPe_Prepared_dataset.csv
 
-rm caseid_predictor check_the_sorted_lines data SSIPe_scores_ddg *tag *_column *_resi *_changes MD RD enriched* depleted* tmp* header ssipe* volume_change
+rm SSIPe_Prepared_dataset caseid_predictor check_the_sorted_lines data SSIPe_scores_ddg *tag *_column *_resi *_changes MD RD enriched* depleted* tmp* header ssipe* volume_change
