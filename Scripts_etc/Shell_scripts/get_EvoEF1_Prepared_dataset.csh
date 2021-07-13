@@ -70,7 +70,7 @@ cat header tmp2 > EvoEF1_scores_ddg
 ./physicochemical_class_change.sh EvoEF1_scores_ddg
 
 #add succ_tag as failure or success
-awk '{print $8}' EvoEF1_scores_ddg > tmp
+awk '{print $7}' EvoEF1_scores_ddg > tmp
 sed 1d tmp > succ_column
 cat succ_column | awk '{ if ( $1 == 0 ) {print "failure"} else {print "success"}}' > succ_tag
 echo "success_tag" > header
