@@ -55,7 +55,7 @@ awk '{if ($5 < 0) {print $0, "0";} else{print $0, "1";}}' depleted > depleted_su
 
 cat enriched_success_rate depleted_success_rate  > tmp
 sort -k1 tmp > tmp2
-echo "#case_id protein mutation_type predictor ddg DDE_vdw DDG_solv succ_rate_MutaBind2" > header
+echo "#case_id protein mutation_type predictor ddg DDE_vdw DDG_solv succ_rate" > header
 cat header tmp2 > MutaBind2_scores_ddg
 
 # Metrics

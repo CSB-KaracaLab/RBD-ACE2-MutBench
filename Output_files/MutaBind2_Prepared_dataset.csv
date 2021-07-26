@@ -1,4 +1,4 @@
-#case_id,protein,mutation_type,predictor,ddg,succ_rate_MutaBind2,volume_change,hydrophobicity_change,flexibility,physicochem_class_change,success_tag
+#case_id,protein,mutation_type,predictor,ddg,succ_rate,volume_change,hydrophobicity_change,flexibility,physicochem_class_change,success_tag
 A386C,ACE2,RD,MutaBind2,0.32,1,0.09205,-0.33,2,no_change,success
 A386E,ACE2,RD,MutaBind2,0.25,1,0.27135,-1.36,8,charge_gain,success
 A386I,ACE2,E,MutaBind2,0.28,0,0.31969,0.76,8,no_change,failure

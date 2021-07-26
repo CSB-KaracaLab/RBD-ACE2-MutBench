@@ -82,4 +82,6 @@ mv tmp EvoEF1_scores_ddg
 awk '{print $1,$2,$3,$4,$6,$7,$8,$9,$10,$11,$12}' EvoEF1_scores_ddg > EvoEF1_Prepared_dataset
 sed 's/ /,/g' EvoEF1_Prepared_dataset > EvoEF1_Prepared_dataset.csv
 
+#remove WT line
+sed -i '/,WT,/d' EvoEF1_Prepared_dataset.csv
 rm EvoEF1_Prepared_dataset EvoEF1_scores_ddg *tag *_column *_resi header tmp* enriched* MD RD data depleted* volume_change EvoEF1_scores

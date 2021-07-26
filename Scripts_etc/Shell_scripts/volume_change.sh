@@ -27,7 +27,7 @@ s/S/ 0.09204 /
 s/T/ 0.19341 /
 s/W/ 0.79351 /
 s/Y/ 0.6115 /
-s/V/ 0.25674/
+s/V/ 0.25674 /
 s/*//g' case_id > output
 
 #[mutant vdW radius] - [wt vdW radius]
