@@ -1,20 +1,20 @@
 #!/bin/csh
-#2021-05 Eda Şamiloğlu
+#2021-07 by Eda Samiloglu
 
-#This script is used for preparing the dataset of figure of volume, hydrophobicity, and flexibility change.
-#Necessary files: HADDOCK_Prepared_dataset FoldX_Prepared_dataset FoldXwater_Prepared_dataset EvoEF1_Prepared_dataset SSIPe_Prepared_dataset MutaBind2_Prepared_dataset 
+# This script prepared for dataset of Metric_volume_hydrophobicity_flexibility_change.ipynb.
+#Necesseray Files:
+#Usage
 
-
-#Divide datasets into Enriched and Depleted for each predictor
+#Divide dataset into Enriched and Depleted for each predictor
 
 printf "HADDOCK\nFoldX\nFoldXwater\nEvoEF1\nMutaBind2\nSSIPe\n" > list
 
 foreach i (`cat list`)
-awk -F ',' '{if ($3=="E") {print $0}}' {$i}_Prepared_dataset.csv > {$i}_Enriched
+awk -F',' '{if ($3=="E") {print $0}}' {$i}_Prepared_dataset.csv > {$i}_Enriched
 end
 
 foreach i (`cat list`)
-awk -F ',' '{if ($3!="E") {print $0}}' {$i}_Prepared_dataset.csv > {$i}_Depleted
+awk -F',' '{if ($3!="E") {print $0}}' {$i}_Prepared_dataset.csv > {$i}_Depleted
 end
 
 #remove header
@@ -31,24 +31,25 @@ end
 ls *_Enriched > Enr_list
 
 foreach i (`cat Enr_list`)
-awk -F ',' '{if ($6==1) {print $0}}' {$i} > {$i}_Success
+awk -F',' '{if ($6==1) {print $0}}' {$i} > {$i}_Success
 end
 
 foreach i (`cat Enr_list`)
-awk -F ',' '{if ($6==0) {print $0}}' {$i} > {$i}_Failure
+awk -F',' '{if ($6==0) {print $0}}' {$i} > {$i}_Failure
 end
 
 
 foreach i (`cat Dep_list`)
-awk -F ',' '{if ($6==1) {print $0}}' {$i} > {$i}_Success
+awk -F',' '{if ($6==1) {print $0}}' {$i} > {$i}_Success
 end
 
 foreach i (`cat Dep_list`)
-awk -F ',' '{if ($6==0) {print $0}}' {$i} > {$i}_Failure
+awk -F',' '{if ($6==0) {print $0}}' {$i} > {$i}_Failure
 end
 
 
-# Change predictor column of one of the (random) Deleted and Enriched dataset to use as Experimental dataset
+
+#### Change predictor column of one of the Deleted and Enriched dataset to use as Experimental dataset
 
 sed 's/HADDOCK/Experimental/g' HADDOCK_Enriched > Enriched
 sed 's/HADDOCK/Experimental/g' HADDOCK_Depleted > Depleted
@@ -62,5 +63,6 @@ cat header *_Enriched_Failure Enriched > Enriched_Failure_dataset
 
 cat header *_Depleted_Success Depleted > Depleted_Success_dataset
 cat header *_Depleted_Failure Depleted > Depleted_Failure_dataset
+
 
 rm header *list  *_Success *Enriched *Depleted *_Failure
