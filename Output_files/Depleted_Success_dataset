@@ -70,7 +70,7 @@ S19N,ACE2,RD,EvoEF1,0,1,0.13768,-0.6,0,no_change,success
 T324G,ACE2,RD,EvoEF1,0,1,-0.19062,0.53,-2,polarity_loss,success
 T500L,RBD,RD,EvoEF1,1.24,1,0.18535,1.11,6,polarity_loss,success
 T500S,RBD,RD,EvoEF1,1.62,1,-0.10137,-0.13,0,no_change,success
-V445Q,RBD,RD,EvoEF1,0.14,1,-0.256744,-1.93,6,polarity_gain,success
+V445Q,RBD,RD,EvoEF1,0.14,1,0.09187,-1.93,6,polarity_gain,success
 Y41A,ACE2,RD,EvoEF1,1.8,1,-0.55448,0.36,-2,polarity_loss,success
 Y41I,ACE2,MD,EvoEF1,1.8,1,-0.23479,1.12,6,polarity_loss,success
 Y41M,ACE2,RD,EvoEF1,1.71,1,-0.22278,0.38,24,polarity_loss,success
@@ -471,7 +471,7 @@ S19N,ACE2,RD,MutaBind2,0.09,1,0.13768,-0.6,0,no_change,success
 T324G,ACE2,RD,MutaBind2,0.61,1,-0.19062,0.53,-2,polarity_loss,success
 T500L,RBD,RD,MutaBind2,0.47,1,0.18535,1.11,6,polarity_loss,success
 T500S,RBD,RD,MutaBind2,0.39,1,-0.10137,-0.13,0,no_change,success
-V445Q,RBD,RD,MutaBind2,0.09,1,-0.256744,-1.93,6,polarity_gain,success
+V445Q,RBD,RD,MutaBind2,0.09,1,0.09187,-1.93,6,polarity_gain,success
 Y41A,ACE2,RD,MutaBind2,2.65,1,-0.55448,0.36,-2,polarity_loss,success
 Y41I,ACE2,MD,MutaBind2,2.62,1,-0.23479,1.12,6,polarity_loss,success
 Y41M,ACE2,RD,MutaBind2,1.76,1,-0.22278,0.38,24,polarity_loss,success
@@ -591,7 +591,7 @@ S19N,ACE2,RD,SSIPe,0.848,1,0.13768,-0.6,0,no_change,success
 T324G,ACE2,RD,SSIPe,0.000,1,-0.19062,0.53,-2,polarity_loss,success
 T500L,RBD,RD,SSIPe,0.588,1,0.18535,1.11,6,polarity_loss,success
 T500S,RBD,RD,SSIPe,2.063,1,-0.10137,-0.13,0,no_change,success
-V445Q,RBD,RD,SSIPe,0.253,1,-0.256744,-1.93,6,polarity_gain,success
+V445Q,RBD,RD,SSIPe,0.253,1,0.09187,-1.93,6,polarity_gain,success
 Y41A,ACE2,RD,SSIPe,2.082,1,-0.55448,0.36,-2,polarity_loss,success
 Y41I,ACE2,MD,SSIPe,1.800,1,-0.23479,1.12,6,polarity_loss,success
 Y41M,ACE2,RD,SSIPe,1.510,1,-0.22278,0.38,24,polarity_loss,success
@@ -723,7 +723,7 @@ S19N,ACE2,RD,Experimental,3.5939,1,0.13768,-0.6,0,no_change,success
 T324G,ACE2,RD,Experimental,6.7667,1,-0.19062,0.53,-2,polarity_loss,success
 T500L,RBD,RD,Experimental,-8.0715,0,0.18535,1.11,6,polarity_loss,failure
 T500S,RBD,RD,Experimental,-1.2067,0,-0.10137,-0.13,0,no_change,failure
-V445Q,RBD,RD,Experimental,-0.2944,0,-0.256744,-1.93,6,polarity_gain,failure
+V445Q,RBD,RD,Experimental,-0.2944,0,0.09187,-1.93,6,polarity_gain,failure
 Y41A,ACE2,RD,Experimental,6.8988,1,-0.55448,0.36,-2,polarity_loss,success
 Y41I,ACE2,MD,Experimental,5.1597,1,-0.23479,1.12,6,polarity_loss,success
 Y41M,ACE2,RD,Experimental,3.1352,1,-0.22278,0.38,24,polarity_loss,success
