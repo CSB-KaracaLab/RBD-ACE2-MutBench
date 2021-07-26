@@ -2,8 +2,8 @@
 #2021-07 by Eda Samiloglu
 
 # This script prepared for dataset of Metric_volume_hydrophobicity_flexibility_change.ipynb.
-#Necesseray Files:
-#Usage
+#Necesseray Files: HADDOCK_Prepared_dataset FoldX_Prepared_dataset FoldXwater_Prepared_dataset EvoEF1_Prepared_dataset SSIPe_Prepared_dataset MutaBind2_Prepared_dataset
+#Usage: ./plot_dataset_volume_hydrophobicity_flexibility.csh
 
 #Divide dataset into Enriched and Depleted for each predictor
 

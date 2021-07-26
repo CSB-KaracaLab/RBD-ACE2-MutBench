@@ -14,6 +14,7 @@ foreach i (*.csv)
     head -1 header_score > header 
     sed 1d header_score >> score
 end
+
 sed 's/Mutated Chain/Mutated_Chain/g' header >tmp
 mv tmp header
 mv score All_scores_Mutabind2
@@ -24,12 +25,14 @@ sed 's/Mutated Chain/Mutated_Chain/g' tmp > tmp1
 sed 's/ /,/g' tmp1 > All_scores_Mutabind2.csv
 
 #sort reference
-sed 's/_/ /g' reference > tmp
+sed 1d reference > ref
+sed 's/_/ /g' ref > tmp
 sort -k1 tmp > tmp1
 #sort scores
 sort -k2 All_scores_Mutabind2 > tmp2
+
 #MutaBind2 lines
-foreach i (`cat reference`)
+foreach i (`cat ref`)
     echo "MutaBind2" >> mutabind2
 end
 
@@ -82,4 +85,4 @@ mv tmp MutaBind2_scores_ddg
 awk '{print $1,$2,$3,$4,$5,$8,$9,$10,$11,$12,$13}' MutaBind2_scores_ddg > MutaBind2_Prepared_dataset
 sed 's/ /,/g' MutaBind2_Prepared_dataset > MutaBind2_Prepared_dataset.csv
 
-rm MutaBind2_Prepared_dataset succ_column succ_tag new_column volume_change enriched* depleted* MD RD mutabind2 All_scores_Mutabind2* header* add_header new_header data Mutabind2_scores MutaBind2_scores_ddg
+rm ref MutaBind2_Prepared_dataset succ_column succ_tag new_column volume_change enriched* depleted* MD RD mutabind2 All_scores_Mutabind2* header* add_header new_header data Mutabind2_scores MutaBind2_scores_ddg

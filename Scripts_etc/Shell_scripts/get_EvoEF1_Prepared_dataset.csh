@@ -7,7 +7,9 @@
 
 # FIRST PART
 #Get EvoEF1 scores from .score files and  paste the score with its mutation name.
-
+#mv WT file, no need in foreach loop
+mv NA_NA_WT_EvoEF1.score ..
+ 
 foreach i (*.score)
     sed -n '/Total                 =/p' $i > scores_line
     set score = `awk '{print $3}' scores_line`
@@ -18,8 +20,10 @@ foreach i (*.score)
     paste name score >> EvoEF1_scores 
 end
 
-#sorting
+#relocate WT file
+mv ../NA_NA_WT_EvoEF1.score .
 
+#sorting
 sed 's/_/ /g' EvoEF1_scores > tmp
 sed 's/\t/ /g' tmp > tmp1
 sort -k1 tmp1 > tmp2
