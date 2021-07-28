@@ -1,9 +1,12 @@
 #!/bin/csh
 #02-2021, Eda Şamiloğlu
 
-#UEP is a standalone tool that predicts binding energy change upon mutation on highly-packed residues. Since UEP output only contains highly-packed residues (>2 inter-contact) may some of our cases have missed. This script finds out intersection of UEP dataset and ACE2-RBD dataset. Also calculates binary success rate of UEP (0/1) for each cases.
-#6m0j_input_UEP_A_E.csv, reference
+#UEP is a standalone tool that predicts binding energy change upon mutation on highly-packed residues. Since UEP output only contains highly-packed residues (>2 inter-contact) may some of our cases have missed. This script finds out intersection of UEP dataset and ACE2-RBD dataset. Also calculates binary success rate of UEP (0/1) for each cases. Then second part of script selects those common cases from HADDOCK, FoldX, FoldXwater, EvoEF1, MutaBind2 and SSIPe Prepared datasets and creates UEP datasets for each predictor.
+#6m0j_input_UEP_A_E.csv, reference, HADDOCK_Prepared_dataset.csv FoldX_Prepared_dataset.csv FoldXwater_Prepared_dataset.csv EvoEF1_Prepared_dataset.csv SSIPe_Prepared_dataset.csv MutaBind2_Prepared_dataset.csv
 #Usage: ./UEP_ACE2-RBD_common_case_selection.csh 
+
+
+## FIRST PART
 
 #Format .csv file
 #Fill the empty cells with NA
@@ -43,7 +46,7 @@ sed 's/\HIS/H/; s/\ARG/R/; s/\LYS/K/; s/\ILE/I/; s/\PHE/F/; s/\LEU/L/; s/\TRP/W/
 sed 's/ //g' dataset_single_letter > mutation_pos1
 paste mutation_pos1 binding_val > uep_prepared_dataset
 
-#get intersected cases between our dataset (263) and UEP suggested dataset (Raw data).
+#get common cases for HADDOCK and UEP from reference file.
 awk -F'_' '{print $1}' reference > case_id
 sed 1d case_id > common_positions
 
@@ -79,5 +82,26 @@ echo 'case_id protein mutation_type binding_value succ_rate' > header
 cat header uep_with_performance > UEP_ACE2-RBD_common_dataset
 sed 's/ /,/g' UEP_ACE2-RBD_common_dataset > UEP_ACE2-RBD_common_dataset.csv
  
-rm depleted_success_rate ref UEP_ACE2-RBD_common_dataset case_id common_positions common_cases ref_performance tmp* x*  header mutation_pos  mutation_pos1 uep_positions  MD RD enriched depleted enriched_success_rate label dataset_single_letter amino_acids first_column hd binding_val common_case_positions  amino_acids_column uep_with_performance uep_prepared_dataset
+rm depleted_success_rate ref case_id common_positions common_cases ref_performance tmp* x*  header mutation_pos  mutation_pos1 uep_positions  MD RD enriched depleted enriched_success_rate label dataset_single_letter amino_acids first_column hd binding_val common_case_positions  amino_acids_column uep_with_performance uep_prepared_dataset
 
+
+## SECOND PART
+
+awk '{print $1}' UEP_ACE2-RBD_common_dataset > case_id
+
+foreach  i (`cat case_id`)
+    grep $i HADDOCK_Prepared_dataset.csv >> tmp
+    sort -u tmp >  HADDOCK_UEP_Prepared_dataset.csv
+    grep $i FoldX_Prepared_dataset.csv >> tmp1
+    sort -u tmp1 > FoldX_UEP_Prepared_dataset.csv
+    grep $i FoldXwater_Prepared_dataset.csv >> tmp2
+    sort -u tmp2 > FoldXwater_UEP_Prepared_dataset.csv
+    grep $i EvoEF1_Prepared_dataset.csv >> tmp3
+    sort -u tmp3 > EvoEF1_UEP_Prepared_dataset.csv
+    grep $i MutaBind2_Prepared_dataset.csv >> tmp4
+    sort -u tmp4 > MutaBind2_UEP_Prepared_dataset.csv
+    grep $i SSIPe_Prepared_dataset.csv >> tmp5
+    sort -u tmp5 > SSIPe_UEP_Prepared_dataset.csv
+end
+
+rm case_id tmp* UEP_ACE2-RBD_common_dataset
