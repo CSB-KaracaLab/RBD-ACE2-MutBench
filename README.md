@@ -38,33 +38,32 @@ We released the study's files in a structured folder organization. We stored out
 
 
 #### Python notebooks
-- *Performance_calculation.ipynb*: 
-- *UEP_performans_calculation.ipynb*:
-- *Metric_volume_hydrophobicity_flexibility_change.ipynb*:
-- *Metric_physicochemical_class_change.ipynb*:
+- *Performance_calculation.ipynb*: Calculates prediction performance of predictors on the main dataset.
+- *UEP_performans_calculation.ipynb*: Calculates prediction performance of predictors on highly-packed residues -intersected dataset between main (263) and UEP suggested datasets.
+- *Metric_volume_hydrophobicity_flexibility_change.ipynb*: Generates the figure and under the curve analysis of volume, hydrophobicity, flexibility metrics. 
+- *Metric_physicochemical_class_change.ipynb*: Generates the figure of physicochemical class metric. 
 
 
 ### Output files
 
-- *reference*:
-- *ACE2_Experimental_dataset.csv*:
-- *RBD_Experimental_dataset.csv*:
-- *HADDOCK_Prepared_dataset.csv*:
-- *FoldX_Prepared_dataset.csv*:
-- *FoldXwater_Prepared_dataset.csv*:
-- *EvoEF1_Prepared_dataset.csv*:
-- *MutaBind2_Prepared_dataset.csv*:
-- *SSIPe_Prepared_dataset.csv*:
-- *Prediction_performances.txt*:
-- *Enriched_Success_dataset*:
-- *Enriched_Failure_dataset*:
-- *Depleted_Success_dataset*:
-- *Depleted_Failure_dataset*:
-- *Volume_hydrophobicity_flexibility_change_figure.svg*:
-- *dataset_physicochemical_class_change.csv*:
-- *Physicochemical_class_change_performances.txt*:
-- *Physicochemical_class_change_ratios.txt*:
-- *Physicochemical_class_change_figure.svg*:
+- *reference*: Necessary file for some shell scripts, contains case id, protein and mutation type informations of corresponding point mutations in the dataset.
+- *ACE2_Experimental_dataset.csv*: Contains binding affinity information of ACE2 point mutations. Output file of get_experimental_values.csh.
+- *RBD_Experimental_dataset.csv*: Contains binding affinity and expression information of ACE2 point mutations. Output file of get_experimental_values.csh.
+- *HADDOCK_Prepared_dataset.csv*: HADDOCK dataset of the study. Output file of get_HADDOCK_Prepared_dataset.csh.
+- *FoldX_Prepared_dataset.csv*: FoldX dataset of the study. Output file of get_FoldX_Prepared_dataset.csh.
+- *FoldXwater_Prepared_dataset.csv*: FoldXwater dataset of the study. Output file of get_FoldXwater_Prepared_dataset.csh.
+- *EvoEF1_Prepared_dataset.csv*: EvoEF1 dataset of the study. Output file of get_EvoEF1_Prepared_dataset.csh.
+- *MutaBind2_Prepared_dataset.csv*: MutaBind2 dataset of the study. Output file of get_MutaBind2_Prepared_dataset.csh.
+- *SSIPe_Prepared_dataset.csv*: SSIPe dataset of the study. Output file of get_SSIPe_Prepared_dataset.csh.
+- *Prediction_performances.txt*: Contains prediction performance rate of predictors.
+- *Enriched_Success_dataset*: Contains enriched and accurately predicted cases for each predictor. Output file of plot_dataset_volume_hydrophobicity_flexibility.csh.
+- *Enriched_Failure_dataset*: Contains enriched and unpredicted cases for each predictor. Output file of plot_dataset_volume_hydrophobicity_flexibility.csh.
+- *Depleted_Success_dataset*: Contains depleted and accurately predicted cases for each predictor. Output file of plot_dataset_volume_hydrophobicity_flexibility.csh.
+- *Depleted_Failure_dataset*: Contains depleted and unpredicted cases for each predictor. Output file of plot_dataset_volume_hydrophobicity_flexibility.csh.
+- *Volume_hydrophobicity_flexibility_change_figure.svg*: Figure file of volume, hydrophobicity, flexibility metrics.
+- *dataset_physicochemical_class_change.csv*: Dataset for metric analyses of physicochemical class. Output file of plot_dataset_volume_hydrophobicity_flexibility.csh.
+- *Physicochemical_class_change_performances.txt*: Prediction performances of predictors on each physicochemical property change classes. 
+- *Physicochemical_class_change_figure.svg*: Figure file of physicochemical class metric.
 - *UEP_ACE2-RBD_common_dataset.csv*:
 - *HADDOCK_UEP_Prepared_dataset.csv*:
 - *FoldX_UEP_Prepared_dataset.csv*:
