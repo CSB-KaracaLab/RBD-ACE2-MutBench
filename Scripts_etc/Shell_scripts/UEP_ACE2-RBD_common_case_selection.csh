@@ -2,7 +2,7 @@
 #02-2021, Eda Şamiloğlu
 
 #UEP is a standalone tool that predicts binding energy change upon mutation on highly-packed residues. Since UEP output only contains highly-packed residues (>2 inter-contact) may some of our cases have missed. This script finds out intersection of UEP dataset and ACE2-RBD dataset. Also calculates binary success rate of UEP (0/1) for each cases.
-#6m0j_input_UEP_A_E.csv, HADDOCK_Prepared_dataset.csv
+#6m0j_input_UEP_A_E.csv, reference
 #Usage: ./UEP_ACE2-RBD_common_case_selection.csh 
 
 #Format .csv file
@@ -43,7 +43,7 @@ sed 's/\HIS/H/; s/\ARG/R/; s/\LYS/K/; s/\ILE/I/; s/\PHE/F/; s/\LEU/L/; s/\TRP/W/
 sed 's/ //g' dataset_single_letter > mutation_pos1
 paste mutation_pos1 binding_val > uep_prepared_dataset
 
-#get common cases for HADDOCK and UEP from reference file.
+#get intersected cases between our dataset (263) and UEP suggested dataset (Raw data).
 awk -F'_' '{print $1}' reference > case_id
 sed 1d case_id > common_positions
 
