@@ -18,9 +18,9 @@ We released the study's files in a structured folder organization. We stored out
 ### Scripts etc
 #### Shell scripts
 
-- *run_EvoEF1.csh*: Builds single amino acid mutations and compute binding affinity by using EvoEF1.
-- *run_FoldX.csh*: Builds single amino acid mutations and compute binding affinity by using FoldX (FoldX commands: Repair, BuildModel, AnalyseComplex).
-- *run_FoldXwater.csh*: Builds single amino acid mutations and compute binding affinity by using FoldX (FoldX commands: Repair, BuildModel, AnalyseComplex with water)
+- *run_EvoEF1.csh*: Builds single amino acid mutations and computes binding affinity by using EvoEF1.
+- *run_FoldX.csh*: Builds single amino acid mutations and computes binding affinity by using FoldX (FoldX commands: Repair, BuildModel, AnalyseComplex).
+- *run_FoldXwater.csh*: Builds single amino acid mutations and computes binding affinity by using FoldX (FoldX commands: Repair, BuildModel, AnalyseComplex with water)
 - *get_experimental_values.csh*: This script selects 263 mutations that were used in the study from binding affinity datasets of RBD and ACE2. 
 - *get_HADDOCK_Prepared_dataset.csh*: Prepares HADDOCK dataset of the study from HADDOCK raw data. 
 - *get_FoldX_Prepared_dataset.csh*: Prepared FoldX dataset of the study from FoldX raw data. 
@@ -32,9 +32,9 @@ We released the study's files in a structured folder organization. We stored out
 - *hydrophobicity_change.sh*: Calculates hydrophobicity changes of amino acid due to point mutation.
 - *flexibility_change.sh*: Calculates flexibility changes of amino acid due to point mutation.
 - *physicochemical_class_change.sh*: Presents physicochemical class change of amino acid due to point mutation. 
-- *UEP_ACE2-RBD_common_case_selection.csh*: UEP is a stand alone tool that we used for determine highly-packed residues. This script selects intersected cases between our dataset (263) and UEP suggested dataset (Raw data). 
-- *plot_dataset_volume_hydrophobicity_flexibility.csh*: Prepares the datasets that used to create figure of volume, hydrophobicity, flexibility metrics.
-- *plot_dataset_physicochemical_class_change.csh*: Prepares the dataset that used to create figure of physicochemical class metric.
+- *UEP_ACE2-RBD_common_case_selection.csh*: UEP is a stand alone tool that we used for determining highly-packed residues. This script selects intersected cases between our dataset (263) and UEP suggested dataset (Raw data). 
+- *plot_dataset_volume_hydrophobicity_flexibility.csh*: Prepares the datasets that used to create the figure of the volume, hydrophobicity, flexibility metrics.
+- *plot_dataset_physicochemical_class_change.csh*: Prepares the dataset that used to create the figure of the physicochemical class metric.
 
 
 #### Python notebooks
@@ -46,7 +46,7 @@ We released the study's files in a structured folder organization. We stored out
 
 ### Output files
 
-- *reference*: Necessary file for some shell scripts, contains case id, protein and mutation type informations of corresponding point mutations in the dataset.
+- *reference*: Necessary file for some shell scripts, contains case id, protein and mutation type information of corresponding point mutations in the dataset.
 - *ACE2_Experimental_dataset.csv*: Contains binding affinity information of ACE2 point mutations. Output file of get_experimental_values.csh.
 - *RBD_Experimental_dataset.csv*: Contains binding affinity and expression information of ACE2 point mutations. Output file of get_experimental_values.csh.
 - *HADDOCK_Prepared_dataset.csv*: HADDOCK dataset of the study. Output file of get_HADDOCK_Prepared_dataset.csh.
@@ -64,13 +64,13 @@ We released the study's files in a structured folder organization. We stored out
 - *dataset_physicochemical_class_change.csv*: Dataset for metric analyses of physicochemical class. Output file of plot_dataset_volume_hydrophobicity_flexibility.csh.
 - *Physicochemical_class_change_performances.txt*: Prediction performances of predictors on each physicochemical property change classes. 
 - *Physicochemical_class_change_figure.svg*: Figure file of physicochemical class metric.
-- *UEP_ACE2-RBD_common_dataset.csv*: Contaions UEP scores of intersected dataset of main (263) and UEP suggested datasets. Output file of UEP_ACE2-RBD_common_case_selection.csh.
-- *HADDOCK_UEP_Prepared_dataset.csv*: Contaions HADDOCK scores of intersected dataset of main (263) and UEP suggested datasets. Output file of UEP_ACE2-RBD_common_case_selection.csh.
-- *FoldX_UEP_Prepared_dataset.csv*: Contaions FoldX scores of intersected dataset of main (263) and UEP suggested datasets. Output file of UEP_ACE2-RBD_common_case_selection.csh.
-- *FoldXwater_UEP_Prepared_dataset.csv*: Contaions FoldXwater scores of intersected dataset of main (263) and UEP suggested datasets. Output file of UEP_ACE2-RBD_common_case_selection.csh.
-- *EvoEF1_UEP_Prepared_dataset.csv*: Contaions EvoEF1 scores of intersected dataset of main (263) and UEP suggested datasets. Output file of UEP_ACE2-RBD_common_case_selection.csh.
-- *MutaBind2_UEP_Prepared_dataset.csv*: Contaions MutaBind2 scores of intersected dataset of main (263) and UEP suggested datasets. Output file of UEP_ACE2-RBD_common_case_selection.csh.
-- *SSIPe_UEP_Prepared_dataset.csv*: Contaions SSIPe scores of intersected dataset of main (263) and UEP suggested datasets. Output file of UEP_ACE2-RBD_common_case_selection.csh.
+- *UEP_ACE2-RBD_common_dataset.csv*: Contains UEP scores of intersected dataset of main (263) and UEP suggested datasets. Output file of UEP_ACE2-RBD_common_case_selection.csh.
+- *HADDOCK_UEP_Prepared_dataset.csv*: Contains HADDOCK scores of intersected dataset of main (263) and UEP suggested datasets. Output file of UEP_ACE2-RBD_common_case_selection.csh.
+- *FoldX_UEP_Prepared_dataset.csv*: Contains FoldX scores of intersected dataset of main (263) and UEP suggested datasets. Output file of UEP_ACE2-RBD_common_case_selection.csh.
+- *FoldXwater_UEP_Prepared_dataset.csv*: Contains FoldXwater scores of intersected dataset of main (263) and UEP suggested datasets. Output file of UEP_ACE2-RBD_common_case_selection.csh.
+- *EvoEF1_UEP_Prepared_dataset.csv*: Contains EvoEF1 scores of intersected dataset of main (263) and UEP suggested datasets. Output file of UEP_ACE2-RBD_common_case_selection.csh.
+- *MutaBind2_UEP_Prepared_dataset.csv*: Contains MutaBind2 scores of intersected dataset of main (263) and UEP suggested datasets. Output file of UEP_ACE2-RBD_common_case_selection.csh.
+- *SSIPe_UEP_Prepared_dataset.csv*: Contains SSIPe scores of intersected dataset of main (263) and UEP suggested datasets. Output file of UEP_ACE2-RBD_common_case_selection.csh.
 - *Performances_on_highly-packed_dataset_UEP.txt*: Contains prediction performance rate of predictors on intersected dataset of main (263) and UEP suggested datasets.
 
 
