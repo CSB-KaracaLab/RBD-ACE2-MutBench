@@ -10,35 +10,35 @@ Presenting prediction performance of binding energy predictors is crucial to rev
 
 ## The directory structure of the repository
 
-We released the study's files in a structured folder organization. We stored output files of six predictors (Raw data) in Drive due to limitations of GitHub storage quotas. 263 point mutated ACE2-RBD protein complexes and corresponding binding affinity values are available on this **link**. Assorted scripts related to the study were stored at the 'Scripts etc' folder. Shell scripting was used for automatization of mutation generation and file manipulation. Python notebook used for figure generation, performance and metric analyses. 'Output files' folder contains various output files of assorted scripts of the study. The purpose of the scripts and definition of output files explained in detail at the below.
+We released the study's files in a structured folder organization. We stored output files of six predictors (Raw data) in Drive due to limitations of GitHub storage quotas. 263 point mutated ACE2-RBD protein complexes and corresponding binding affinity values are available on this *link*. Assorted scripts related to the study were stored at the 'Scripts etc' folder. Shell scripting was used for automatization of mutation generation and file manipulation. Python notebook used for figure generation, performance and metric analyses. 'Output files' folder contains various output files of assorted scripts of the study. The purpose of the scripts and the description of output files explained in detail at the below.
 
 
 <img src="file_content.png" alt="main" width="600" />
 
 ### Scripts etc
-
 #### Shell scripts
 
-- *run_EvoEF1.csh*:
-- *run_FoldX.csh*:
-- *run_FoldXwater.csh*:
-- *get_experimental_values.csh*:
-- *get_HADDOCK_Prepared_dataset.csh*:
-- *get_FoldX_Prepared_dataset.csh*:
-- *get_FoldXwater_Prepared_dataset.csh*:
-- *get_EvoEF1_Prepared_dataset.csh*:
-- *get_MutaBind2_Prepared_dataset.csh*:
-- *get_SSIPe_Prepared_dataset.csh*:
-- *volume_change.sh*:
-- *hydrophobicity_change.sh*:
-- *flexibility_change.sh*:
-- *physicochemical_class_change.sh*:
-- *UEP_ACE2-RBD_common_case_selection.csh*:
-- *plot_dataset_physicochemical_class_change.csh*:
-- *plot_dataset_volume_hydrophobicity_flexibility.csh*:
+- *run_EvoEF1.csh*: Builds single amino acid mutations and compute binding affinity by using EvoEF1.
+- *run_FoldX.csh*: Builds single amino acid mutations and compute binding affinity by using FoldX (FoldX commands: Repair, BuildModel, AnalyseComplex).
+- *run_FoldXwater.csh*: Builds single amino acid mutations and compute binding affinity by using FoldX (FoldX commands: Repair, BuildModel, AnalyseComplex with water)
+- *get_experimental_values.csh*: This script selects 263 mutations that were used in the study from binding affinity datasets of RBD and ACE2. 
+- *get_HADDOCK_Prepared_dataset.csh*: Prepares HADDOCK dataset of the study from HADDOCK raw data. 
+- *get_FoldX_Prepared_dataset.csh*: Prepared FoldX dataset of the study from FoldX raw data. 
+- *get_FoldXwater_Prepared_dataset.csh*: Prepared FoldXwater dataset of the study from FoldXwater raw data.
+- *get_EvoEF1_Prepared_dataset.csh*: Prepared EvoEF1 dataset of the study from EvoEF1 raw data.
+- *get_MutaBind2_Prepared_dataset.csh*: Prepared MutaBind2 dataset of the study from MutaBind2 raw data.
+- *get_SSIPe_Prepared_dataset.csh*: Prepared SSIPe dataset of the study from SSIPe raw data.
+- *volume_change.sh*: Calculates van der Waals volume changes of amino acid due to point mutation.
+- *hydrophobicity_change.sh*: Calculates hydrophobicity changes of amino acid due to point mutation.
+- *flexibility_change.sh*: Calculates flexibility changes of amino acid due to point mutation.
+- *physicochemical_class_change.sh*: Presents physicochemical class change of amino acid due to point mutation. 
+- *UEP_ACE2-RBD_common_case_selection.csh*: UEP is a stand alone tool that we used for determine highly-packed residues. This script selects intersected cases between our dataset (263) and UEP suggested dataset (Raw data). 
+- *plot_dataset_volume_hydrophobicity_flexibility.csh*: Prepares the datasets that used to create figure of volume, hydrophobicity, flexibility metrics.
+- *plot_dataset_physicochemical_class_change.csh*: Prepares the dataset that used to create figure of physicochemical class metric.
+
 
 #### Python notebooks
-- *Performance_calculation.ipynb*:
+- *Performance_calculation.ipynb*: 
 - *UEP_performans_calculation.ipynb*:
 - *Metric_volume_hydrophobicity_flexibility_change.ipynb*:
 - *Metric_physicochemical_class_change.ipynb*:
@@ -80,6 +80,8 @@ We released the study's files in a structured folder organization. We stored out
 git clone https://github.com/CSB-KaracaLab/ace2-rbd-point-mutation-benchmark
 ```
 ## License
+
+## Acknowledgements
 
 ## Contact
 ezgi.karaca@ibg.edu.tr
