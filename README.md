@@ -64,13 +64,13 @@ We released the study's files in a structured folder organization. We stored out
 - *dataset_physicochemical_class_change.csv*: Dataset for metric analyses of physicochemical class. Output file of plot_dataset_volume_hydrophobicity_flexibility.csh.
 - *Physicochemical_class_change_performances.txt*: Prediction performances of predictors on each physicochemical property change classes. 
 - *Physicochemical_class_change_figure.svg*: Figure file of physicochemical class metric.
-- *UEP_ACE2-RBD_common_dataset.csv*: Contaions UEP scores of intersected dataset of main (263) and UEP suggested datasets. Output file of UEP_ACE2-RBD_common_case_selection.csh.
-- *HADDOCK_UEP_Prepared_dataset.csv*: Contaions HADDOCK scores of intersected dataset of main (263) and UEP suggested datasets. Output file of UEP_ACE2-RBD_common_case_selection.csh.
-- *FoldX_UEP_Prepared_dataset.csv*: Contaions FoldX scores of intersected dataset of main (263) and UEP suggested datasets. Output file of UEP_ACE2-RBD_common_case_selection.csh.
-- *FoldXwater_UEP_Prepared_dataset.csv*: Contaions FoldXwater scores of intersected dataset of main (263) and UEP suggested datasets. Output file of UEP_ACE2-RBD_common_case_selection.csh.
-- *EvoEF1_UEP_Prepared_dataset.csv*: Contaions EvoEF1 scores of intersected dataset of main (263) and UEP suggested datasets. Output file of UEP_ACE2-RBD_common_case_selection.csh.
-- *MutaBind2_UEP_Prepared_dataset.csv*: Contaions MutaBind2 scores of intersected dataset of main (263) and UEP suggested datasets. Output file of UEP_ACE2-RBD_common_case_selection.csh.
-- *SSIPe_UEP_Prepared_dataset.csv*: Contaions SSIPe scores of intersected dataset of main (263) and UEP suggested datasets. Output file of UEP_ACE2-RBD_common_case_selection.csh.
+- *UEP_ACE2-RBD_common_dataset.csv*: Contains UEP scores of intersected dataset of main (263) and UEP suggested datasets. Output file of UEP_ACE2-RBD_common_case_selection.csh.
+- *HADDOCK_UEP_Prepared_dataset.csv*: Contains HADDOCK scores of intersected dataset of main (263) and UEP suggested datasets. Output file of UEP_ACE2-RBD_common_case_selection.csh.
+- *FoldX_UEP_Prepared_dataset.csv*: Contains FoldX scores of intersected dataset of main (263) and UEP suggested datasets. Output file of UEP_ACE2-RBD_common_case_selection.csh.
+- *FoldXwater_UEP_Prepared_dataset.csv*: Contains FoldXwater scores of intersected dataset of main (263) and UEP suggested datasets. Output file of UEP_ACE2-RBD_common_case_selection.csh.
+- *EvoEF1_UEP_Prepared_dataset.csv*: Contains EvoEF1 scores of intersected dataset of main (263) and UEP suggested datasets. Output file of UEP_ACE2-RBD_common_case_selection.csh.
+- *MutaBind2_UEP_Prepared_dataset.csv*: Contains MutaBind2 scores of intersected dataset of main (263) and UEP suggested datasets. Output file of UEP_ACE2-RBD_common_case_selection.csh.
+- *SSIPe_UEP_Prepared_dataset.csv*: Contains SSIPe scores of intersected dataset of main (263) and UEP suggested datasets. Output file of UEP_ACE2-RBD_common_case_selection.csh.
 - *Performances_on_highly-packed_dataset_UEP.txt*: Contains prediction performance rate of predictors on intersected dataset of main (263) and UEP suggested datasets.
 
 
