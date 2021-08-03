@@ -10,7 +10,7 @@ Presenting prediction performance of binding energy predictors is crucial to rev
 
 ## The directory structure of the repository
 
-We released the study's files in a structured folder organization. We stored output files of six predictors (Raw data) in Drive due to limitations of GitHub storage quotas. 263 point mutated ACE2-RBD protein complexes and corresponding binding affinity values are available on this *link*. Assorted scripts related to the study were stored at the 'Scripts etc' folder. Shell scripting was used for automatization of mutation generation and file manipulation. Python notebook used for figure generation, performance and metric analyses. 'Output files' folder contains various output files of assorted scripts of the study. The purpose of the scripts and the description of output files explained in detail at the below.
+We released the study's files in a structured folder organization. We stored output files of six predictors (Raw data) in Drive due to limitations of GitHub storage quotas. 263 point mutated ACE2-RBD protein complexes and corresponding binding affinity values are available on this [*link*](https://drive.google.com/drive/u/1/folders/1Gfyen1dTXD25WPKyAPDmQdzrbAEhW3cq). Assorted scripts related to the study were stored at the 'Scripts etc' folder. Shell scripting was used for automatization of mutation generation and file manipulation. Python notebook used for figure generation, performance and metric analyses. 'Output files' folder contains various output files of assorted scripts of the study. The purpose of the scripts and the description of output files explained in detail at the below.
 
 
 <img src="file_content.png" alt="main" width="600" />
@@ -18,9 +18,9 @@ We released the study's files in a structured folder organization. We stored out
 ### Scripts etc
 #### Shell scripts
 
-- *run_EvoEF1.csh*: Builds single amino acid mutations and compute binding affinity by using EvoEF1.
-- *run_FoldX.csh*: Builds single amino acid mutations and compute binding affinity by using FoldX (FoldX commands: Repair, BuildModel, AnalyseComplex).
-- *run_FoldXwater.csh*: Builds single amino acid mutations and compute binding affinity by using FoldX (FoldX commands: Repair, BuildModel, AnalyseComplex with water)
+- *run_EvoEF1.csh*: Builds single amino acid mutations and computes binding affinity by using EvoEF1.
+- *run_FoldX.csh*: Builds single amino acid mutations and computes binding affinity by using FoldX (FoldX commands: Repair, BuildModel, AnalyseComplex).
+- *run_FoldXwater.csh*: Builds single amino acid mutations and computes binding affinity by using FoldX (FoldX commands: Repair, BuildModel, AnalyseComplex with water)
 - *get_experimental_values.csh*: This script selects 263 mutations that were used in the study from binding affinity datasets of RBD and ACE2. 
 - *get_HADDOCK_Prepared_dataset.csh*: Prepares HADDOCK dataset of the study from HADDOCK raw data. 
 - *get_FoldX_Prepared_dataset.csh*: Prepared FoldX dataset of the study from FoldX raw data. 
@@ -32,9 +32,9 @@ We released the study's files in a structured folder organization. We stored out
 - *hydrophobicity_change.sh*: Calculates hydrophobicity changes of amino acid due to point mutation.
 - *flexibility_change.sh*: Calculates flexibility changes of amino acid due to point mutation.
 - *physicochemical_class_change.sh*: Presents physicochemical class change of amino acid due to point mutation. 
-- *UEP_ACE2-RBD_common_case_selection.csh*: UEP is a stand alone tool that we used for determine highly-packed residues. This script selects intersected cases between our dataset (263) and UEP suggested dataset (Raw data). 
-- *plot_dataset_volume_hydrophobicity_flexibility.csh*: Prepares the datasets that used to create figure of volume, hydrophobicity, flexibility metrics.
-- *plot_dataset_physicochemical_class_change.csh*: Prepares the dataset that used to create figure of physicochemical class metric.
+- *UEP_ACE2-RBD_common_case_selection.csh*: UEP is a stand alone tool that we used for determining highly-packed residues. This script selects intersected cases between our dataset (263) and UEP suggested dataset (Raw data). 
+- *plot_dataset_volume_hydrophobicity_flexibility.csh*: Prepares the datasets that used to create the figure of the volume, hydrophobicity, flexibility metrics.
+- *plot_dataset_physicochemical_class_change.csh*: Prepares the dataset that used to create the figure of the physicochemical class metric.
 
 
 #### Python notebooks
@@ -46,7 +46,7 @@ We released the study's files in a structured folder organization. We stored out
 
 ### Output files
 
-- *reference*: Necessary file for some shell scripts, contains case id, protein and mutation type informations of corresponding point mutations in the dataset.
+- *reference*: Necessary file for some shell scripts, contains case id, protein and mutation type information of corresponding point mutations in the dataset.
 - *ACE2_Experimental_dataset.csv*: Contains binding affinity information of ACE2 point mutations. Output file of get_experimental_values.csh.
 - *RBD_Experimental_dataset.csv*: Contains binding affinity and expression information of ACE2 point mutations. Output file of get_experimental_values.csh.
 - *HADDOCK_Prepared_dataset.csv*: HADDOCK dataset of the study. Output file of get_HADDOCK_Prepared_dataset.csh.
