@@ -18,11 +18,26 @@ Assorted scripts related to the study were stored at the 'scripts' folder. Shell
 <img src="file_content.png" alt="main" width="600" />
 
 ### Scripts etc
+
+There is two kinds of shell scripts. The first one is run scripts, these scripts used for automatization of mutation generation of standalone tools. We generated FoldX and EvoEF1 models by using these scripts. HADDOKC, MutaBind2, and SSIPe models produced via their web server. Lastly UEP is a standalone tool which is produce all possible mutations at once -no need automatization. 
+
+The second is get scripts, these scripts used for grepping predicted binding energy values from output files of predictor. 
 #### Shell scripts
 
 - *run_EvoEF1.csh*: Builds single amino acid mutations and computes binding affinity by using EvoEF1.
 - *run_FoldX.csh*: Builds single amino acid mutations and computes binding affinity by using FoldX (FoldX commands: Repair, BuildModel, AnalyseComplex).
 - *run_FoldXwater.csh*: Builds single amino acid mutations and computes binding affinity by using FoldX (FoldX commands: Repair, BuildModel, AnalyseComplex with water)
+- *get_HADDOCK_scores.csh*
+- *get_FoldX_scores.csh*
+- *get_FoldXwater_scores.csh*
+- *get_EvoEF1_scores.csh*
+- *get_MutaBind2_scores.csh*
+- *get_SSIPe_scores.csh*
+-
+-rwxr-xr-x  1 edasamiloglu  staff   935 29 Eyl 09:49 
+-rwxr-xr-x  1 edasamiloglu  staff  1149 29 Eyl 09:50 get_SSIPe_scores.csh
+-rwxr-xr-x  1 edasamiloglu  staff  3176 29 Eyl 10:00 get_UEP_scores.csh
+
 
 
 #### Python notebooks
