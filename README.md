@@ -8,7 +8,7 @@ Accurate prediction of binding energy change is a question of utmost importance 
 
 Presenting prediction performance of binding energy predictors is crucial to reveal what we can do with computationally inexpensive and fast methods in the case of future pandemics.
 
-<img src="Resim4.png" alt="main" width="1000" />
+<img src="workflow.png" alt="main" width="900" />
 
 ## The directory structure of the repository
 
