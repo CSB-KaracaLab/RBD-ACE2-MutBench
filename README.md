@@ -8,7 +8,7 @@ Accurate prediction of binding energy change is a question of utmost importance 
 
 Presenting prediction performance of binding energy predictors is crucial to reveal what we can do with computationally inexpensive and fast methods in the case of future pandemics.
 
-<img src="workflow_1.png" alt="main" width="900" />
+<img src="workflow.png" alt="main" width="1000" />
 
 ## The directory structure of the repository
 
@@ -53,6 +53,7 @@ run_<predictor> scripts used for automatization of mutation generation of standa
 
   - *SARS-CoV-2-RBD_ACE2_benchmarking_dataset.csv*: Main dataset of the study, contains ∆∆G scores of predictors on 263 point mutaions of SARS-CoV-2 RBD and human ACE2 protein complex (PDB ID: 6m0j).
   - *UEP_SARS-CoV-2-RBD_ACE2_benchmarking_dataset.csv*: UEP calculates ∆∆G for highly-packed residues that have at least 2 non-covalent bond in the interface. So UEP dataset is a fraction of main dataset that represents core mutations.
+  - *Figures.pdf*: Metric related figures of the study. 
   
 
 ## Clone the repository
