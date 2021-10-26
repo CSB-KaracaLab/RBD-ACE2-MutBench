@@ -31,28 +31,28 @@ run_<predictor> scripts used for automatization of mutation generation of standa
 
 #### Notebooks
   
-  -*creating_benchmarking_datasets.ipynb*: Creates SARS_CoV_2_RBD_ACE2_benchmarking_dataset.csv and UEP_SARS_CoV_2_RBD_ACE2_benchmarking_dataset.csv files.  These files are contain ∆∆G scores of predictors. 
-  -*performance_analysis.ipynb*: Calculates prediction performance of predictors by using SARS_CoV_2_RBD_ACE2_benchmarking_dataset.csv and UEP_SARS_CoV_2_RBD_ACE2_benchmarking_dataset.csv files.
-  -*metric_analyses_figure_preparation.ipynb*: Builds metric analyses and creates figures of this study.
+  - *creating_benchmarking_datasets.ipynb*: Creates SARS_CoV_2_RBD_ACE2_benchmarking_dataset.csv and UEP_SARS_CoV_2_RBD_ACE2_benchmarking_dataset.csv files.  These files are contain ∆∆G scores of predictors. 
+  - *performance_analysis.ipynb*: Calculates prediction performance of predictors by using SARS_CoV_2_RBD_ACE2_benchmarking_dataset.csv and UEP_SARS_CoV_2_RBD_ACE2_benchmarking_dataset.csv files.
+  - *metric_analyses_figure_preparation.ipynb*: Builds metric analyses and creates figures of this study.
 
 
 ### Files
 
 #### Input files
-  -*ACE2_Experimental_dataset.csv*: Experimental binding valus of ACE2 point mutations.
-  -*RBD_Experimental_dataset.csv*: Experimental binding valus of RBD point mutations.
-  -*HADDOCK_scores.csv*: Binding energy scores (∆G) of HADDOCK on 263 point mutations (+ wild type).
-  -*FoldX_scores.csv*: Binding energy scores (∆G) of FoldX on 263 point mutations, each mutations have their own wild type.
-  -*FoldXwater_scores.csv*: Binding energy scores (∆G) of FoldX with pdbWaters option on 263 point mutations, each mutation has its own wild type.
-  -*EvoEF1_scores.csv*: Binding energy scores (∆G) of EvoEF1 on 263 point mutations (+ wild type).
-  -*MutaBind2_scores.csv*: Binding energy change (∆∆G) scores of MutaBind2 on 263 point mutations.
-  -*SSIPe_result.txt*: Binding energy change (∆∆G) scores of SSIPe on 263 point mutations.
-  -*6m0j_UEP_A_E.csv*: Binding energy change (∆∆G) scores of UEP. 
+  - *ACE2_Experimental_dataset.csv*: Experimental binding valus of ACE2 point mutations.
+  - *RBD_Experimental_dataset.csv*: Experimental binding valus of RBD point mutations.
+  - *HADDOCK_scores.csv*: Binding energy scores (∆G) of HADDOCK on 263 point mutations (+ wild type).
+  - *FoldX_scores.csv*: Binding energy scores (∆G) of FoldX on 263 point mutations, each mutations have their own wild type.
+  - *FoldXwater_scores.csv*: Binding energy scores (∆G) of FoldX with pdbWaters option on 263 point mutations, each mutation has its own wild type.
+  - *EvoEF1_scores.csv*: Binding energy scores (∆G) of EvoEF1 on 263 point mutations (+ wild type).
+  - *MutaBind2_scores.csv*: Binding energy change (∆∆G) scores of MutaBind2 on 263 point mutations.
+  - *SSIPe_result.txt*: Binding energy change (∆∆G) scores of SSIPe on 263 point mutations.
+  - *6m0j_UEP_A_E.csv*: Binding energy change (∆∆G) scores of UEP. 
   
 #### Output files
 
-  -*SARS-CoV-2-RBD_ACE2_benchmarking_dataset.csv*: Main dataset of the study, contains ∆∆G scores of predictors on 263 point mutaions of SARS-CoV-2 RBD and human ACE2 protein complex (PDB ID: 6m0j).
-  -*UEP_SARS-CoV-2-RBD_ACE2_benchmarking_dataset.csv*: UEP calculates ∆∆G for highly-packed residues that have at least 2 non-covalent bond in the interface. So UEP dataset is a fraction of main dataset that represents core mutations.
+  - *SARS-CoV-2-RBD_ACE2_benchmarking_dataset.csv*: Main dataset of the study, contains ∆∆G scores of predictors on 263 point mutaions of SARS-CoV-2 RBD and human ACE2 protein complex (PDB ID: 6m0j).
+  - *UEP_SARS-CoV-2-RBD_ACE2_benchmarking_dataset.csv*: UEP calculates ∆∆G for highly-packed residues that have at least 2 non-covalent bond in the interface. So UEP dataset is a fraction of main dataset that represents core mutations.
   
 
 ## Clone the repository
