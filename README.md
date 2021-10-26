@@ -53,6 +53,7 @@ run_<predictor> scripts used for automatization of mutation generation of standa
 
   - *SARS-CoV-2-RBD_ACE2_benchmarking_dataset.csv*: Main dataset of the study, contains ∆∆G scores of predictors on 263 point mutaions of SARS-CoV-2 RBD and human ACE2 protein complex (PDB ID: 6m0j).
   - *UEP_SARS-CoV-2-RBD_ACE2_benchmarking_dataset.csv*: UEP calculates ∆∆G for highly-packed residues that have at least 2 non-covalent bond in the interface. So UEP dataset is a fraction of main dataset that represents core mutations.
+  - *Figures.pdf*: Metric related figures of the study. 
   
 
 ## Clone the repository
