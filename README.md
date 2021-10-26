@@ -8,14 +8,14 @@ Accurate prediction of binding energy change is a question of utmost importance 
 
 Presenting prediction performance of binding energy predictors is crucial to reveal what we can do with computationally inexpensive and fast methods in the case of future pandemics.
 
+<img src="workflow.jpg" alt="main" width="600" />
+
 ## The directory structure of the repository
 
 We released the study's files in a structured folder organization. Input files contain only binding energy outputs of predictors and experimental data sets. Raw data of six predictors were stored at Drive due to limitations of GitHub storage quotas. 263 point mutated ACE2-RBD protein complexes and corresponding binding affinity values are available on this [*link*](https://drive.google.com/drive/u/1/folders/1Gfyen1dTXD25WPKyAPDmQdzrbAEhW3cq). 
 
 Assorted scripts related to the study were stored at the 'scripts' folder. Shell scripting was used for automatization of mutation generation and file manipulation -generating input files of study. Python notebooks were used for figure generation, performance and metric analyses. Generated figures and benchmarking dataset stored at 'output files' folder. The purpose of the scripts and the description of output files explained in detail at the below.
 
-
-<img src="file_content.png" alt="main" width="600" />
 
 ### Scripts
 
