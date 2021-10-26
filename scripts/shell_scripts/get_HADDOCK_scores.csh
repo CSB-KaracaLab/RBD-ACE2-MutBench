@@ -1,17 +1,18 @@
 #!/bin/csh
 #2021-Eda Samiloglu
 
-####
-# This script collects the best HADDOCK binding score from HADDOCK run-folders.
-# Note that HADDOCK run-folders were named as <case id>_<protein name>_<mutation type>_HADDOCK to indicate corresponding mutation.
-# Output of this script is a CSV file that contains case id, protein name, mutation type, and HADDOCK score of mutant and wild type ACE2-RBD complex.
-# This script must be in the same directory with the necessary files to run successfully.
-#
-# Necessary files: HADDOCK run folders
-# Usage: ./get_HADDOCK_scores.csv
-####
+###############################################################
+### This script collects the best HADDOCK binding score from HADDOCK run-folders.
+### Note that HADDOCK run-folders were named as <case id>_HADDOCK to indicate corresponding mutation.
+### Output of this script is a CSV file that contains case id and HADDOCK score of mutant and wild type ACE2-RBD complex.
+### This script must be in the same directory with the necessary files to run successfully.
+### 
+### Necessary files: HADDOCK run folders
+### Usage: ./get_HADDOCK_scores.csh
+###############################################################
 
 # First, get a list of HADDOCK run files to indicate mutations with folder names. Then, extracte HADDOCK score from structures_haddock-sorted.stat files in the /structures/it1/water/ directory. The first line of structures_haddock-sorted.stat file is the header, and the second line is the best HADDOCK score of the corresponding mutation.
+
 touch label_score_list 
 foreach i (*HADDOCK)
     echo $i >> run_name_list

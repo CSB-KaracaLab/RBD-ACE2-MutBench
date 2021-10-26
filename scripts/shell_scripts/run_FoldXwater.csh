@@ -1,299 +1,134 @@
 #!/bin/csh
-#05-2021, Eda Samiloglu
+#Adapted in September 2021
 
-####
-#This script was prepared for produce FoldX-water models and scores of interface mutations of 6m0j complex (263 mutations as total). 
-#This script consist from 2 parts; 
-#	-Model generation and energy (∆G) calculation
-#	-Rename otuput files (.pdb, .foldx, .fxout)
-#
-#Necessary files: 6m0j.pdb, individual_list.txt, case_identifier
-# Usage: ./run.FoldXwater.csh
-#Note: Do not forget change the FoldX software directory path if you use the script on your computer.
-####
+###############################################################
+### This script uses specific mutation lists to build single amino acid mutations with BuildModel command and after computes complex
+### energy by using AnalyseComplex (Foldx 5.0) with pdbWaters option. This option used to predict water mediated Hydrogen bonds in the 
+### interface. 
+### individual_list.txt is a mandatory file and should contains FoldX specific mutation format as a single column.
+### List format : [Wild type aa][ChainID][residue][mutatedform;]
+### Example list:
+### SE477A;
+### SE477C;
+### To run the script : ./run_FoldXwater.csh pdb_file
+### Example : ./run_FoldXwater.csh 6m0j.pdb
+### (Do not forget to update your foldx_dir location.)
+###############################################################
 
-#### MODEL GENERATION, ENERGY CALCULATION #### 
-#
-# FoldX commands: Repair, BuildModel, AnalyseComplex with water
-# Folder organization: Output_structures, Output_scores, Output_files_fxout
-#
-###############################################
+if ($#argv != 1) then
+  echo "----------------------------------------------------------"
+  echo "This script changes pdb files according to individual_list.txt file"
+  echo "Then, calculates complex analyze ΔG values"
+  echo "----------------------------------------------------------"
+  echo "Usage:"
+  echo "./run_FoldXwater.csh pdb_file"
+  echo "Example:"
+  echo "./run_FoldXwater.csh 6m0j.pdb"
+  echo "(Do not forget to update your foldx_dir location.)"
+  echo "----------------------------------------------------------"
+  exit 0
+endif
 
-#Do not forget change the FoldX software directory path if you use the script on your computer.
-set foldx_dir = "/archive/karacalabshared/Software/foldx5Linux64"
+# update this to your own foldx directory
+set foldx_dir = /archive/karacalabshared/Software/foldx5Linux64
 
-$foldx_dir/foldx --command=RepairPDB --pdb=6m0j.pdb
+mkdir mutant_structures
+mkdir wildtype_structures
+mkdir output_scores
 
-$foldx_dir/foldx --pdb=6m0j_Repair.pdb --command=BuildModel --mutant-file=individual_list.txt
+$foldx_dir/foldx --command=RepairPDB --pdb=$1
+
+foreach i(*Repair.pdb)
+   $foldx_dir/foldx --command=BuildModel --pdb=$i --mutant-file=individual_list.txt
+end
+
+# rename FoldX structures -FoldX gives order as a name to the structure
+ls -lrt *_Repair_*.pdb |awk '{print $9}' > pdb_list
+sed 's/;//g' individual_list.txt > caselist
+foreach i (`cat caselist`)
+	printf "$i\n$i"_WT"\n" >> caseid
+end
+paste -d ' ' pdb_list caseid > rename_lines
+foreach i("`cat rename_lines`")
+        echo $i > tmp
+        set old_name = `awk '{print $1}' tmp`
+        awk '{print $2}' tmp > new
+        cut --complement -c2 new > new_name_without_chainid
+        set new_name = `cat new_name_without_chainid`
+        mv "$old_name" "$new_name"_FoldXwater.pdb
+end
+rm rename_lines caseid tmp new caselist pdb_list new_name_without_chainid 
+
+mv *_WT_FoldXwater.pdb wildtype_structures
+mv *_FoldXwater.pdb mutant_structures
+
+cd mutant_structures
+mkdir fxout_data
+
+# Runs over mutated pdb files to calculate FoldX scores
+# update chain id's if needed
+set chain_1 = "A"
+set chain_2 = "E"
 
 foreach i (*pdb)
 set name = `echo $i | sed 's/\.pdb//g'`
-$foldx_dir/foldx --pdb="$name".pdb --command=AnalyseComplex --analyseComplexChains=A,E --pdbWaters=true --water=-PREDICT > "$name".foldx
+$foldx_dir/foldx --pdb="$name".pdb --command=AnalyseComplex --analyseComplexChains=A,E --pdbWaters=true --water=-PREDICT > "$name".score
 end
 
-mkdir Output_structures
-mkdir Output_scores
-mkdir Output_files_fxout
 
-mv *pdb Output_structures
-mv *foldx Output_scores
-mv *fxout Output_files_fxout 
 
-rm rotabase.txt Unrecognized_molecules.txt
+foreach i(*.score)
+	echo $i `grep "Total          =" $i | tail -1 | awk '{print $3}'` >> FoldX_score
+end
+
+mv *fxout fxout_data
+mv *.score ../output_scores
+rm -r molecules
+rm rotabase.txt 
+mv FoldX_score ../
+
+
+cd ../wildtype_structures
+
+mkdir fxout_data
+
+# update chain id's same as before
+set chain_1 = "A"
+set chain_2 = "E"
+
+foreach i (*pdb)
+set name = `echo $i | sed 's/\.pdb//g'`
+$foldx_dir/foldx --pdb="$name".pdb --command=AnalyseComplex --analyseComplexChains=A,E --pdbWaters=true --water=-PREDICT > "$name".score
+end
+
+foreach i(*.score)
+	echo $i `grep "Total          =" $i | tail -1 | awk '{print $3}'` >> WT_FoldX_score
+end
+
+mv *fxout fxout_data
+mv *.score ../output_scores
+rm -r molecules
+rm rotabase.txt 
+mv WT_FoldX_score ../
+
+cd .. 
+mv *fxout mutant_structures/fxout_data
+rm rotabase.txt
 rm -r molecules
 
-#### RENAME the FILES #### 
-#Rename strucuture, foldx, other files respectively
-#case_identifier file generated by using HADDOCK_Prepared_dataset file (first 4 column) to rename files properly.
-###############################################
+paste -d ' ' FoldX_score WT_FoldX_score > data
+sed -i 's/_FoldX.score//g' data
+awk '{print $1,$2,$4}' data > data1
+# add header
+echo '#case_id foldx-score-mut foldx-score-wt' > header
+cat header data1 > FoldX_score
+# conver csv file
+sed 's/ /,/g' FoldX_score > FoldXwater_score.csv
+sed -i 's/_FoldXwater.score//g' FoldXwater_score.csv
+rm WT_FoldX_score FoldX_score data* header
 
-cd Output_structures 
-
-cp ../case_identifier . 
-cp ../individual_list.txt .
-sed 1d case_identifier > case_identifier2
-
-ls 6m0j_Repair_*.pdb |sort -V > MUT_names_list
-ls WT_6m0j_Repair_*.pdb |sort -V > WT_names_list
+mkdir output_structures
+mv mutant_structures/ output_structures/
+mv wildtype_structures/ output_structures/
 
 
-#Mutant .pdbs
-
-paste -d" " case_identifier2 individual_list.txt MUT_names_list > matched_name_lines
-sed -i 's/ /-/g' matched_name_lines
-
-foreach i(`cat matched_name_lines`)
-    echo $i > tmp
-    sed -i 's/-/ /g' tmp
-    awk '{print $1,$2,$3}' tmp > tmp1
-    sed -i 's/ /_/g' tmp1
-    set name  = `awk '{print $0}' tmp1`"_FoldXwater_MUT.pdb"
-
-    awk '{print $5}' tmp > tmp2
-    set old_name = `awk '{print $0}' tmp2`
-    mv $old_name $name
-end
-
-#Wild type .pdbs
-paste -d" " case_identifier2 individual_list.txt WT_names_list > matched_name_lines
-sed -i 's/ /-/g' matched_name_lines
-
-foreach i(`cat matched_name_lines`)
-    echo $i > tmp
-    sed -i 's/-/ /g' tmp
-    awk '{print $1,$2,$3}' tmp > tmp1
-    sed -i 's/ /_/g' tmp1
-    set name  = `awk '{print $0}' tmp1`"_FoldXwater_WT.pdb"
-
-    awk '{print $5}' tmp > tmp2
-    set old_name = `awk '{print $0}' tmp2`
-    mv $old_name $name
-end
-
-rm case_identifier* matched_name_lines individual_list.txt tmp* WT_names_list MUT_names_list
-
-cd ../Output_scores
-
-cp ../case_identifier . 
-cp ../individual_list.txt .
-sed 1d case_identifier > case_identifier2
-
-ls 6m0j_Repair_*.foldx |sort -V > MUT_names_list
-ls WT_6m0j_Repair_*.foldx |sort -V > WT_names_list
-
-#Mutant .foldx
-
-paste -d" " case_identifier2 individual_list.txt MUT_names_list > matched_name_lines
-sed -i 's/ /-/g' matched_name_lines
-
-foreach i(`cat matched_name_lines`)
-    echo $i > tmp
-    sed -i 's/-/ /g' tmp
-    awk '{print $1,$2,$3}' tmp > tmp1
-    sed -i 's/ /_/g' tmp1
-    set name  = `awk '{print $0}' tmp1`"_FoldXwater_MUT.foldx"
-
-    awk '{print $5}' tmp > tmp2
-    set old_name = `awk '{print $0}' tmp2`
-    mv $old_name $name
-end
-
-#Wild type .foldx
-paste -d" " case_identifier2 individual_list.txt WT_names_list > matched_name_lines
-sed -i 's/ /-/g' matched_name_lines
-
-foreach i(`cat matched_name_lines`)
-    echo $i > tmp
-    sed -i 's/-/ /g' tmp
-    awk '{print $1,$2,$3}' tmp > tmp1
-    sed -i 's/ /_/g' tmp1
-    set name  = `awk '{print $0}' tmp1`"_FoldXwater_WT.foldx"
-
-    awk '{print $5}' tmp > tmp2
-    set old_name = `awk '{print $0}' tmp2`
-    mv $old_name $name
-end
-
-rm case_identifier* matched_name_lines individual_list.txt tmp* WT_names_list MUT_names_list
-
-#Output_files_fxout: There are 4 typs files; Individual energy, Interface residues, Interaction and Summary for both mutants and wild-types.
-
-cd ../Output_files_fxout
-
-cp ../case_identifier . 
-cp ../individual_list.txt .
-sed 1d case_identifier > case_identifier2
-
-# 1-Individual energy
-
-ls Indiv_energies_6m0j_Repair_*_AC* |sort -V > MUT_names_list
-ls Indiv_energies_WT_6m0j_Repair_*_AC* | sort -V > WT_names_list
-
-#Mutant
-
-paste -d" " case_identifier2 individual_list.txt MUT_names_list > matched_name_lines
-sed -i 's/ /-/g' matched_name_lines
-
-foreach i(`cat matched_name_lines`)
-    echo $i > tmp
-    sed -i 's/-/ /g' tmp
-    awk '{print $1,$2,$3}' tmp > tmp1
-    sed -i 's/ /_/g' tmp1
-    set name  = `awk '{print $0}' tmp1`"_FoldXwater_MUT_Indiv_energies.fxout"
-
-    awk '{print $5}' tmp > tmp2
-    set old_name = `awk '{print $0}' tmp2`
-    mv $old_name $name
-end
-
-#Wild type
-paste -d" " case_identifier2 individual_list.txt WT_names_list > matched_name_lines
-sed -i 's/ /-/g' matched_name_lines
-
-foreach i(`cat matched_name_lines`)
-    echo $i > tmp
-    sed -i 's/-/ /g' tmp
-    awk '{print $1,$2,$3}' tmp > tmp1
-    sed -i 's/ /_/g' tmp1
-    set name  = `awk '{print $0}' tmp1`"_FoldXwater_WT_Indiv_energies.fxout"
-
-    awk '{print $5}' tmp > tmp2
-    set old_name = `awk '{print $0}' tmp2`
-    mv $old_name $name
-end
-
-# 2-Interface residues
-
-ls Interface_Residues_6m0j_Repair_*_AC* |sort -V > MUT_names_list
-ls Interface_Residues_WT_6m0j_Repair_*_AC* | sort -V > WT_names_list
-
-#Mutant
-
-paste -d" " case_identifier2 individual_list.txt MUT_names_list > matched_name_lines
-sed -i 's/ /-/g' matched_name_lines
-
-foreach i(`cat matched_name_lines`)
-    echo $i > tmp
-    sed -i 's/-/ /g' tmp
-    awk '{print $1,$2,$3}' tmp > tmp1
-    sed -i 's/ /_/g' tmp1
-    set name  = `awk '{print $0}' tmp1`"_FoldXwater_MUT_Interface_Residues.fxout"
-
-    awk '{print $5}' tmp > tmp2
-    set old_name = `awk '{print $0}' tmp2`
-    mv $old_name $name
-end
-
-#Wild type
-paste -d" " case_identifier2 individual_list.txt WT_names_list > matched_name_lines
-sed -i 's/ /-/g' matched_name_lines
-
-foreach i(`cat matched_name_lines`)
-    echo $i > tmp
-    sed -i 's/-/ /g' tmp
-    awk '{print $1,$2,$3}' tmp > tmp1
-    sed -i 's/ /_/g' tmp1
-    set name  = `awk '{print $0}' tmp1`"_FoldXwater_WT_Interface_Residues.fxout"
-
-    awk '{print $5}' tmp > tmp2
-    set old_name = `awk '{print $0}' tmp2`
-    mv $old_name $name
-end
-
-# 3-Interaction
-
-ls Interaction_6m0j_Repair_*_AC* |sort -V > MUT_names_list
-ls Interaction_WT_6m0j_Repair_*_AC* | sort -V > WT_names_list
-
-#Mutant
-
-paste -d" " case_identifier2 individual_list.txt MUT_names_list > matched_name_lines
-sed -i 's/ /-/g' matched_name_lines
-
-foreach i(`cat matched_name_lines`)
-    echo $i > tmp
-    sed -i 's/-/ /g' tmp
-    awk '{print $1,$2,$3}' tmp > tmp1
-    sed -i 's/ /_/g' tmp1
-    set name  = `awk '{print $0}' tmp1`"_FoldXwater_MUT_Interaction.fxout"
-
-    awk '{print $5}' tmp > tmp2
-    set old_name = `awk '{print $0}' tmp2`
-    mv $old_name $name
-end
-
-#Wild type
-paste -d" " case_identifier2 individual_list.txt WT_names_list > matched_name_lines
-sed -i 's/ /-/g' matched_name_lines
-
-foreach i(`cat matched_name_lines`)
-    echo $i > tmp
-    sed -i 's/-/ /g' tmp
-    awk '{print $1,$2,$3}' tmp > tmp1
-    sed -i 's/ /_/g' tmp1
-    set name  = `awk '{print $0}' tmp1`"_FoldXwater_WT_Interaction.fxout"
-
-    awk '{print $5}' tmp > tmp2
-    set old_name = `awk '{print $0}' tmp2`
-    mv $old_name $name
-end
-
-# 4-Summary
-
-ls Summary_6m0j_Repair_*_AC* |sort -V > MUT_names_list
-ls Summary_WT_6m0j_Repair_*_AC* | sort -V > WT_names_list
-
-#Mutant
-
-paste -d" " case_identifier2 individual_list.txt MUT_names_list > matched_name_lines
-sed -i 's/ /-/g' matched_name_lines
-
-foreach i(`cat matched_name_lines`)
-    echo $i > tmp
-    sed -i 's/-/ /g' tmp
-    awk '{print $1,$2,$3}' tmp > tmp1
-    sed -i 's/ /_/g' tmp1
-    set name  = `awk '{print $0}' tmp1`"_FoldXwater_MUT_Summary.fxout"
-
-    awk '{print $5}' tmp > tmp2
-    set old_name = `awk '{print $0}' tmp2`
-    mv $old_name $name
-end
-
-#Wild type
-paste -d" " case_identifier2 individual_list.txt WT_names_list > matched_name_lines
-sed -i 's/ /-/g' matched_name_lines
-
-foreach i(`cat matched_name_lines`)
-    echo $i > tmp
-    sed -i 's/-/ /g' tmp
-    awk '{print $1,$2,$3}' tmp > tmp1
-    sed -i 's/ /_/g' tmp1
-    set name  = `awk '{print $0}' tmp1`"_FoldXwater_WT_Summary.fxout"
-
-    awk '{print $5}' tmp > tmp2
-    set old_name = `awk '{print $0}' tmp2`
-    mv $old_name $name
-end
-
-rm case_identifier* matched_name_lines individual_list.txt tmp* WT_names_list MUT_names_list 

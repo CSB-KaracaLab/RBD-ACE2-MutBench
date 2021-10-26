@@ -1,20 +1,18 @@
 #!/bin/csh
+#Adapted in September 2021
 
 ###############################################################
-### This script uses specific mutation lists to build single amino acid mutations
-### with BuildModel command and after computes complex energy with AnalyseComplex
-### by using Foldx 5.0
+### This script uses specific mutation lists to build single amino acid mutations with BuildModel command and after computes complex
+### energy with AnalyseComplex by using Foldx 5.0.
 ### individual_list.txt is a mandatory file and should contains FoldX specific mutation format as a single column.
-### List format : [Wild type aa][ChainID][residue][mutatedform;] 
+### List format : [Wild type aa][ChainID][residue][mutatedform;]
 ### Example list:
 ### SE477A;
 ### SE477C;
-### QE498H;
 ### To run the script : ./run_FoldX.csh pdb_file
 ### Example : ./run_FoldX.csh 6m0j.pdb
 ### (Do not forget to update your foldx_dir location.)
 ###############################################################
-
 
 if ($#argv != 1) then
   echo "----------------------------------------------------------"
@@ -28,59 +26,67 @@ if ($#argv != 1) then
   echo "(Do not forget to update your foldx_dir location.)"
   echo "----------------------------------------------------------"
   exit 0
-endif 
+endif
 
 # update this to your own foldx directory
-set foldx_dir = /Users/edasamiloglu/Software/Foldx
+set foldx_dir = /archive/karacalabshared/Software/foldx5Linux64
 
-mkdir Mutated_PDBs
-mkdir WildType_PDBs
-mkdir BuildModel_Data
+mkdir mutant_structures
+mkdir wildtype_structures
+mkdir output_scores
 
-$foldx_dir/foldx --command=RepairPDB --pdb=$1 
-mv $1 BuildModel_Data
+$foldx_dir/foldx --command=RepairPDB --pdb=$1
 
 foreach i(*Repair.pdb)
     $foldx_dir/foldx --command=BuildModel --pdb=$i --mutant-file=individual_list.txt
-    mv $i BuildModel_Data
 end
 
-mv WT_* WildType_PDBs
-mv *pdb Mutated_PDBs
+# rename FoldX structures -FoldX gives order as a name to the structure
+ls -lrt *_Repair_*.pdb |awk '{print $9}' > pdb_list
+sed 's/;//g' individual_list.txt > caselist
+foreach i (`cat caselist`)
+	printf "$i\n$i"_WT"\n" >> caseid
+end
+paste -d ' ' pdb_list caseid > rename_lines
+foreach i("`cat rename_lines`")
+        echo $i > tmp
+        set old_name = `awk '{print $1}' tmp`
+        awk '{print $2}' tmp > new
+        cut --complement -c2 new > new_name_without_chainid
+        set new_name = `cat new_name_without_chainid`
+        mv "$old_name" "$new_name"_FoldX.pdb
+end
+rm rename_lines caseid tmp new caselist pdb_list new_name_without_chainid 
 
-echo All models were produced 
-echo Now, Analyzing Complex Chains
+mv *_WT_FoldX.pdb wildtype_structures
+mv *_FoldX.pdb mutant_structures
 
-cd Mutated_PDBs
-
+cd mutant_structures
 mkdir fxout_data
 
-# Runs over mutated pdb files to calculate AnalyseComplex value
+# Runs over mutated pdb files to calculate FoldX scores
 # update chain id's if needed
 set chain_1 = "A"
 set chain_2 = "E"
 
 foreach i(*pdb)
 	set name = `echo $i | sed 's/\.pdb//g'`
-	$foldx_dir/foldx --command=AnalyseComplex --pdb="$name".pdb --analyseComplexChains="$chain_1","$chain_2" > "$name".foldx
+	$foldx_dir/foldx --command=AnalyseComplex --pdb="$name".pdb --analyseComplexChains="$chain_1","$chain_2" > "$name".score
 end
 
-foreach i(*.foldx)
-	echo $i `grep "Total          =" $i | tail -1 | awk '{print $3}'` >> AnalyzeCom
+foreach i(*.score)
+	echo $i `grep "Total          =" $i | tail -1 | awk '{print $3}'` >> FoldX_score
 end
 
-sed 's/\.foldx//g' AnalyzeCom |sort -V > tmp
-mv tmp ..
-mv *.fxout fxout_data
-rm rotabase.txt
-rmdir molecules
-cd ..
+mv *fxout fxout_data
+mv *.score ../output_scores
+rm -r molecules
+rm rotabase.txt 
+mv FoldX_score ../
 
 
-paste tmp individual_list.txt > AnalyzeCom
-rm tmp
+cd ../wildtype_structures
 
-cd WildType_PDBs
 mkdir fxout_data
 
 # update chain id's same as before
@@ -89,29 +95,56 @@ set chain_2 = "E"
 
 foreach i(*pdb)
 	set name = `echo $i | sed 's/\.pdb//g'`
-	$foldx_dir/foldx --command=AnalyseComplex --pdb="$name".pdb --analyseComplexChains="$chain_1","$chain_2" > "$name".foldx
+	$foldx_dir/foldx --command=AnalyseComplex --pdb="$name".pdb --analyseComplexChains="$chain_1","$chain_2" > "$name".score
 end
 
-foreach i(*.foldx)
-	echo $i `grep "Total          =" $i | tail -1 | awk '{print $3}'` >> WT_AnalyzeCom
+foreach i(*.score)
+	echo $i `grep "Total          =" $i | tail -1 | awk '{print $3}'` >> WT_FoldX_score
 end
 
-sed 's/\.foldx//g' WT_AnalyzeCom |sort -V > tmp
-mv tmp ..
-mv *.fxout fxout_data
-rm rotabase.txt
-rmdir molecules
-cd ..
+mv *fxout fxout_data
+mv *.score ../output_scores
+rm -r molecules
+rm rotabase.txt 
+mv WT_FoldX_score ../
 
-paste tmp AnalyzeCom > AnalyzeComplex_DG_Energies
+cd .. 
+mv *fxout mutant_structures/fxout_data
+rm rotabase.txt Unrecognized_molecules.txt
+rm -r molecules
 
-rm tmp
-rm AnalyzeCom
-mv *.fxout BuildModel_Data
-mv individual_list.txt BuildModel_Data
-rm rotabase.txt
-rmdir molecules
+paste -d ' ' FoldX_score WT_FoldX_score > data
+sed -i 's/_FoldX.score//g' data
+awk '{print $1,$2,$4}' data > data1
+#add header
+echo '#case_id foldx-score-mut foldx-score-wt' > header
+cat header data1 > FoldX_score
+#convert csv file
+sed 's/ /,/g' FoldX_score > FoldX_score.csv
+rm WT_FoldX_score FoldX_score data* header
 
-echo All Done
+mkdir output_structures
+mv mutant_structures/ output_structures/
+mv wildtype_structures/ output_structures/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
