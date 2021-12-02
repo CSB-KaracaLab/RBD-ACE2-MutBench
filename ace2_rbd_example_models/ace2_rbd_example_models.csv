@@ -1,0 +1,6 @@
+#case_id,exp_binding,protein,haddock-ddg,foldx-ddg,foldxwater-ddg,evoef1-ddg,mutabind2-ddg,ssipe-ddg
+N501Y,0.24,RBD,1.90,3.03,6.28,0.32,0.65,-0.17
+E484K,0.06,RBD,3.92,-0.14,-0.16,-0.16,0.16,0.95
+S477N,0.06,RBD,1.61,0.04,0.04,0.00,-0.11,0.00
+D30A,-1.59,ACE2,9.32,1.47,1.50,1.23,0.37,0.85
+N330W,2.95,ACE2,-3.45,-1.14,-0.97,-1.45,0.54,-0.86
