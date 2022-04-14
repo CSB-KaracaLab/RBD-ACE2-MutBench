@@ -3,7 +3,7 @@ Benchmark of widely used structure-based binding affinity predictors on the vari
 
 ## Motivation
 
-Since the start of COVID-19 pandemic, a huge effort has been devoted to understanding the Spike-ACE2 recognition mechanism. Within this context, two recent deep mutational scanning studies traced the impact of all possible mutations/variants across the Spike-ACE2 interface (Chan et al., 2020; Starr et al., 2020). Expanding on these studies, we benchmarked four widely used structure-based binding affinity predictors (FoldX, EvoEF1, MutaBind2, SSIPe), as well as two naïve predictors (HADDOCK, UEP) on the variant Spike-ACE2 deep mutational interaction set. Upon analyzing the performance of the predictors from several residue-based aspects, we investigated the grounds of the predictors on a viral host-pathogen system like SARS-CoV-2-ACE2. To aid the improvement of the available approaches,  we present our mutant models together with our benchmarking data. 
+Since the start of COVID-19 pandemic, a huge effort has been devoted to understanding the Spike-ACE2 recognition mechanism. Within this context, two recent deep mutational scanning studies traced the impact of all possible mutations/variants across the Spike-ACE2 interface (Chan et al., 2020; Starr et al., 2020). Expanding on these studies, we benchmarked widely used structure-based binding affinity predictors on the variant Spike-ACE2 deep mutational interaction set. Upon analyzing the performance of the predictors from several residue-based aspects, we investigated the grounds of the predictors on a viral host-pathogen system like SARS-CoV-2-ACE2. To aid the improvement of the available approaches,  we present our mutant models together with our benchmarking data. 
 
 We used deep mutational scanning coupled with interaction profiling data sets, produced for Spike-RBD (Starr et al., 2020) and human ACE2 (Chan et al.,2020) variants. From these dataset, we concentrated on interface variants. To determine the interface positions, we used 6m0j pdb structure (Lan et al., 2020) with PDBePISA (Schymkowitz et al., 2005). Then, we generated our dataset that contains an equal amount of “enriching” and “depleting” interfacial RBD-ACE2 mutations, totaling 263 mutations (179 ACE2 and 84 Spike-RBD mutations).
 
@@ -32,9 +32,9 @@ run_<predictor> scripts were used to generate FoldX and EvoEF1 models, automatic
 
 #### Notebooks
   
-  - *creating_benchmarking_datasets.ipynb*: Creates SARS_CoV_2_RBD_ACE2_benchmarking_dataset.csv and UEP_SARS_CoV_2_RBD_ACE2_benchmarking_dataset.csv files.  These files contain ∆∆G scores of predictors. 
+  - *creating_benchmarking_datasets.ipynb*: Creates SARS_CoV_2_RBD_ACE2_benchmarking_dataset.csv and UEP_SARS_CoV_2_RBD_ACE2_benchmarking_dataset.csv files.  These files contain binding energy change (∆∆G) scores of predictors. 
   - *performance_analysis.ipynb*: Calculates success rates of predictors by using SARS_CoV_2_RBD_ACE2_benchmarking_dataset.csv and UEP_SARS_CoV_2_RBD_ACE2_benchmarking_dataset.csv files.
-  - *metric_analyses_figure_preparation.ipynb*: Performs metric analyses (volume, hydrophobicity, flexibility, and physicochemical property change upon a mutation) and visualizes the outputs.
+  - *metric_analyses_figure_preparation.ipynb*: Performs metric analyses (volume, hydrophobicity, flexibility, and physicochemical property change upon a mutation) and visualizes the outputs as plots.
 
 
 ### Files
@@ -52,10 +52,9 @@ run_<predictor> scripts were used to generate FoldX and EvoEF1 models, automatic
   
 #### Output files
 
-  - *SARS-CoV-2-RBD_ACE2_benchmarking_dataset.csv*: Main dataset of the study, contains predicted affinity change (∆∆G) scores of predictors on 263 point mutaions of SARS-CoV-2 RBD and human ACE2 protein complex (PDB ID: 6m0j).
-  - *UEP_SARS-CoV-2-RBD_ACE2_benchmarking_dataset.csv*: UEP calculates ∆∆G for highly-packed residues that have at least 2 non-covalent bond in the interface. So UEP dataset is a fraction of main dataset that represents core mutations.
-  - *Figures.pdf*: Metric related figures of the study. 
-  
+  - *SARS-CoV-2-RBD_ACE2_benchmarking_dataset.csv*: Main dataset of this study that contains predicted affinity change (∆∆G) scores of predictors on 263 point mutaions of SARS-CoV-2 RBD and human ACE2 protein complex (PDB ID: 6m0j).
+  - *UEP_SARS-CoV-2-RBD_ACE2_benchmarking_dataset.csv*: UEP calculates ∆∆G when the position of interest has interactions with at least two other residues (highly packed residues within 5Å range). So, UEP can be run on a subset of our benchmark set with 129 mutations (82 ACE2, 47 Spike-RBD mutations).
+  - *Figures.pdf*: Generated metric related figure (Volume, hydrophobicity, flexibility and physicochemical property change) of the study. 
 
 ## Clone the repository
 ```
@@ -63,7 +62,7 @@ git clone https://github.com/CSB-KaracaLab/ace2-rbd-point-mutation-benchmark
 ```
 
 ## Acknowledgements
-All the simulations and analyses were carried out in the HPC resources of Izmir Biomedicine and Genome Center. We created the visualization page by using the open-source codes of Rodrigues *et al.* study (Rodrigues et al., 2020)
+All the simulations and analyses were carried out in the HPC resources of Izmir Biomedicine and Genome Center. The visualization page is created by using the open-source codes of Rodrigues *et al.* study (Rodrigues et al., 2020)
 
 ## Contact
 ezgi.karaca@ibg.edu.tr
