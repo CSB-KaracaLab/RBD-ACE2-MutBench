@@ -11,6 +11,8 @@ For our benchmarking efforts, we used four widely used structure-based binding a
 
 Here, we presented our bencmarking results with the required scripts for the reporoducibility of this study.
 
+The models and the scores are visualized in https://nzmye.github.io/ace2-rbd-point-mutation-benchmark/visualize/#
+
 ## Folder organization of our repository:
 
 <img src="workflow.png" alt="main" width="1200" />
@@ -59,9 +61,18 @@ run_<predictor> scripts were used to generate FoldX and EvoEF1 models, automatic
 ```
 git clone https://github.com/CSB-KaracaLab/ace2-rbd-point-mutation-benchmark
 ```
-## License
 
 ## Acknowledgements
+All the simulations and analyses were carried out in the HPC resources of Izmir Biomedicine and Genome Center. We created the visualization page by using the open-source codes of Rodrigues *et al.* study (Rodrigues et al., 2020)
 
 ## Contact
 ezgi.karaca@ibg.edu.tr
+  
+## References
+1.  Chan,K.K., Dorosky,D., Sharma,P., Abbasi,S.A., Dye,J.M., Kranz,D.M., Herbert,A.S. and Procko,E. (2020) Engineering human ACE2 to optimize binding to the spike protein of SARS coronavirus 2. Science (1979), 369, 1261–1265.
+2. Lan,J., Ge,J., Yu,J., Shan,S., Zhou,H., Fan,S., Zhang,Q., Shi,X., Wang,Q., Zhang,L., et al. (2020) Structure of the SARS-CoV-2 spike receptor-binding domain bound to the ACE2 receptor. Nature, 581, 215–220.
+3. Rodrigues,J.P.G.L.M., Barrera-Vilarmau,S., M. C. Teixeira,J., Sorokina,M., Seckel,E., Kastritis,P.L. and Levitt,M. (2020) Insights on cross-species transmission of SARS-CoV-2 from structural modeling. PLOS Computational Biology, 16, e1008449.
+ 4. Schymkowitz,J.W.H., Rousseau,F., Martins,I.C., Ferkinghoff-Borg,J., Stricher,F. and Serrano,L. (2005) Prediction of water and metal binding sites and their affinities by using the Fold-X force field. Proceedings of the National Academy of Sciences, 102, 10147–10152.
+5. Starr,T.N., Greaney,A.J., Hilton,S.K., Ellis,D., Crawford,K.H.D., Dingens,A.S., Navarro,M.J., Bowen,J.E., Tortorici,M.A., Walls,A.C., et al. (2020) Deep Mutational Scanning of SARS-CoV-2 Receptor Binding Domain Reveals Constraints on Folding and ACE2 Binding. Cell, 182, 1295-1310.e20.
+
+
