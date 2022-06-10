@@ -11,7 +11,7 @@ For our benchmarking efforts, we used four widely used structure-based binding a
 
 Here, we presented our bencmarking results with the required scripts for the reporoducibility of this study.
 
-The models and the scores are visualized in https://nzmye.github.io/ace2-rbd-point-mutation-benchmark/visualize/#
+The models and the scores are visualized in https://rbd-ace2-mutbench.github.io/
 
 ## Folder organization of our repository:
 
