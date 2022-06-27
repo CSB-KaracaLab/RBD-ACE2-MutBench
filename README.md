@@ -5,9 +5,9 @@ Benchmarking the Widely Used Structure-based Binding Affinity Predictors on the 
 
 Since the start of COVID-19 pandemic, a huge effort has been devoted to understanding the Spike(SARS-CoV-2)-ACE2 recognition mechanism. As prominent examples, two deep mutational scanning (DMS) studies (Chan et al., 2020; Starr et al., 2020) traced the impact of all possible mutations/variants across the Spike-ACE2 interface. Expanding on this, we benchmark four widely used structure-based binding affinity predictors (FoldX, EvoEF1, MutaBind2, SSIPe) and two naïve predictors (HADDOCK, UEP) on the variant Spike-ACE2 deep mutational interaction set. Among these approaches, FoldX ranks first with a 64% success rate, followed by EvoEF1 with a 57% accuracy. Upon performing residue-based analyses, we reveal critical algorithmic biases, especially in ranking mutations with increasing/decreasing hydrophobicity/volume. We also show that the approaches using evolutionary-based terms in their scoring functions misclassify most mutations as binding depleting. These observations suggest plenty of room to improve the conventional affinity predictors for guessing the variant-induced binding profile changes of Spike-ACE2. 
 
-For more, please check our preprint [![DOI:10.1101/2022.04.18.488633](https://img.shields.io/badge/DOI-10.1101/2022.04.18.488633-B31B1B.svg)](https://doi.org/10.1101/2022.04.18.488633) and the related files, as outlined below:
-
 Our mutants models and their prediction scores can be visualized at https://rbd-ace2-mutbench.github.io/
+
+For more, please check [![DOI:10.1101/2022.04.18.488633](https://img.shields.io/badge/DOI-10.1101/2022.04.18.488633-B31B1B.svg)](https://doi.org/10.1101/2022.04.18.488633) 
 
 ## Folder organization of our repository:
 
@@ -30,16 +30,14 @@ The mutations are imposed on RBD-ACE2 complex with PDB ID: 6m0j
 
 ### Scripts
 
-run_<predictor> scripts were used to generate FoldX and EvoEF1 models, automatically. 
-
-#### Shell scripts
+#### shell scripts
 
 - *run_FoldX.csh*: Applies single amino acid mutations and computes binding affinity by using FoldX. (Called FoldX commands: Repair, BuildModel, AnalyseComplex).
 - *run_FoldXwater.csh*: The same as above by using FoldX with water option. 
 - *run_EvoEF1.csh*: Applies single amino acid mutations and computes binding affinity by using EvoEF1. (Called EvoEF1 commands: RepairStructure, BuildMutant, ComputeBinding).
 - *get_HADDOCK_scores.csh*: Greps the predicted HADDOCK energy scores from the HADDOCK energy files.
 
-#### Notebooks
+#### notebooks
   
   - *creating_benchmarking_datasets.ipynb*: Creates SARS_CoV_2_RBD_ACE2_benchmarking_dataset.csv and UEP_SARS_CoV_2_RBD_ACE2_benchmarking_dataset.csv files. 
   - *performance_analysis.ipynb*: Calculates success rates of predictors by using SARS_CoV_2_RBD_ACE2_benchmarking_dataset.csv and UEP_SARS_CoV_2_RBD_ACE2_benchmarking_dataset.csv files.
