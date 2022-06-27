@@ -1,77 +1,59 @@
 ![gitub-sars-cov-2](https://user-images.githubusercontent.com/64282221/163183191-17baa15b-f599-4857-abcb-2bd009dadcf5.png)
-Benchmark of widely used structure-based binding affinity predictors on the variant Spike-ACE2 deep mutational interaction set.
+Benchmarking the Widely Used Structure-based Binding Affinity Predictors on the Spike-ACE2 Deep Mutational Interaction Set
 
 ## Motivation
 
-Since the start of COVID-19 pandemic, a huge effort has been devoted to understanding the Spike-ACE2 recognition mechanism. Within this context, two recent deep mutational scanning studies traced the impact of all possible mutations/variants across the Spike-ACE2 interface (Chan et al., 2020; Starr et al., 2020). Expanding on these studies, we benchmarked widely used structure-based binding affinity predictors on the variant Spike-ACE2 deep mutational interaction set. Upon analyzing the performance of the predictors from several residue-based aspects, we investigated the grounds of the predictors on a viral host-pathogen system like SARS-CoV-2-ACE2. To aid the improvement of the available approaches,  we present our mutant models together with our benchmarking data. 
+Since the start of COVID-19 pandemic, a huge effort has been devoted to understanding the Spike(SARS-CoV-2)-ACE2 recognition mechanism. As prominent examples, two deep mutational scanning (DMS) studies (Chan et al., 2020; Starr et al., 2020) traced the impact of all possible mutations/variants across the Spike-ACE2 interface. Expanding on this, we benchmark four widely used structure-based binding affinity predictors (FoldX, EvoEF1, MutaBind2, SSIPe) and two naïve predictors (HADDOCK, UEP) on the variant Spike-ACE2 deep mutational interaction set. Among these approaches, FoldX ranks first with a 64% success rate, followed by EvoEF1 with a 57% accuracy. Upon performing residue-based analyses, we reveal critical algorithmic biases, especially in ranking mutations with increasing/decreasing hydrophobicity/volume. We also show that the approaches using evolutionary-based terms in their scoring functions misclassify most mutations as binding depleting. These observations suggest plenty of room to improve the conventional affinity predictors for guessing the variant-induced binding profile changes of Spike-ACE2. 
 
-We used deep mutational scanning coupled with interaction profiling data sets, produced for Spike-RBD (Starr et al., 2020) and human ACE2 (Chan et al.,2020) variants. From these dataset, we concentrated on interface variants. To determine the interface positions, we used 6m0j pdb structure (Lan et al., 2020) with PDBePISA (Schymkowitz et al., 2005). Then, we generated our dataset that contains an equal amount of “enriching” and “depleting” interfacial RBD-ACE2 mutations, totaling 263 mutations (179 ACE2 and 84 Spike-RBD mutations).
+For more, please check our preprint [![DOI:10.1101/2022.04.18.488633](https://img.shields.io/badge/DOI-10.1101/2022.04.18.488633-B31B1B.svg)](https://doi.org/10.1101/2022.04.18.488633) and the related files, as outlined below:
 
-For our benchmarking efforts, we used four widely used structure-based binding affinity predictors as the main algorithms: FoldX (also FoldXwater), EvoEF1, Mutabind2, and two naïve predictors: SSIPe and  HADDOCK and UEP. Then, we evaluated the prediction performances of these tools from the perspectives of volume, hydrophobicity, flexibility, and physicochemical property change upon a mutation. 
-
-Here, we presented our bencmarking results with the required scripts for the reporoducibility of this study.
-
-The models and the scores are visualized in https://rbd-ace2-mutbench.github.io/
+Our mutants models and their prediction scores can be visualized at https://rbd-ace2-mutbench.github.io/
 
 ## Folder organization of our repository:
 
-<img src="workflow.png" alt="main" width="1200" />
+In this work, we used the stand-alone packages of [FoldX](http://foldxsuite.crg.eu/products#foldx),[EvoEF1](https://github.com/tommyhuangthu/EvoEF) and [UEP](https://github.com/pepamengual/UEP) and run [HADDOCK](https://alcazar.science.uu.nl/services/HADDOCK2.2/), [MutaBind2](https://lilab.jysw.suda.edu.cn/research/mutabind2/), and [SSIPe](https://zhanggroup.org/SSIPe/) by using the relevant services to generate mutant models and their scores.  
 
-We used the stand-alone packages of [FoldX](http://foldxsuite.crg.eu/products#foldx),[EvoEF1](https://github.com/tommyhuangthu/EvoEF) and [UEP](https://github.com/pepamengual/UEP) and run [HADDOCK](https://alcazar.science.uu.nl/services/HADDOCK2.2/), [MutaBind2](https://lilab.jysw.suda.edu.cn/research/mutabind2/), and [SSIPe](https://zhanggroup.org/SSIPe/) on their servers to generate the models.  
+### input-output-files/
+
+#### input files
+The mutations are imposed on RBD-ACE2 complex with PDB ID: 6m0j
+  - *ACE2_Experimental_dataset.csv*: DMS binding values of ACE2 179 point mutations.
+  - *RBD_Experimental_dataset.csv*: DMS binding values of 84 RBD point mutations.
+  - *HADDOCK_scores.csv* & *FoldX_scores.csv* & *FoldXwater_scores.csv* & *EvoEF1_scores.csv*: HADDOCK, FoldX, FoldXwater, and EvoEF1 mutant scores (263 mutations) + 6m0j wild-type score.
+  - *MutaBind2_scores.csv* & *SSIPe_result.txt* & *6m0j_UEP_A_E.csv*: Predicted ∆∆G changes of each mutation.
+  
+#### output files
+
+  - *SARS-CoV-2-RBD_ACE2_benchmarking_dataset.csv*: Predicted affinity change scores (∆∆G) of each predictor. 
+  - *UEP_SARS-CoV-2-RBD_ACE2_benchmarking_dataset.csv*: UEP calculates ∆∆G when the position of interest has interactions with at least two other residues (highly packed residues within 5Å range). This is a subset of the main prediction scores with 129 mutations (82 ACE2, 47 Spike-RBD mutations).
+
+
 ### Scripts
 
-run_<predictor> scripts were used to generate FoldX and EvoEF1 models, automatically. UEP is also a standalone tool, but it produces all possible mutations at once, so there is no need for automatization.
+run_<predictor> scripts were used to generate FoldX and EvoEF1 models, automatically. 
 
 #### Shell scripts
 
-- *run_FoldX.csh*: Applies single amino acid mutations and computes binding affinity by using FoldX. (FoldX commands: Repair, BuildModel, AnalyseComplex).
-- *run_FoldXwater.csh*: Applies single amino acid mutations and computes binding affinity by using FoldX with water option. (FoldX commands: Repair, BuildModel, AnalyseComplex with water)
-- *run_EvoEF1.csh*: Applies single amino acid mutations and computes binding affinity by using EvoEF1. (EvoEF1 commands: RepairStructure, BuildMutant, ComputeBinding).
-- *get_HADDOCK_scores.csh*: Greps the predicted HADDOCK energy scores from the raw output files.
-- *pdb-tools.csh*: Generates HADDOCK input structures by selecting the first occupancy of atoms in case of the multiple occupancies.
+- *run_FoldX.csh*: Applies single amino acid mutations and computes binding affinity by using FoldX. (Called FoldX commands: Repair, BuildModel, AnalyseComplex).
+- *run_FoldXwater.csh*: The same as above by using FoldX with water option. 
+- *run_EvoEF1.csh*: Applies single amino acid mutations and computes binding affinity by using EvoEF1. (Called EvoEF1 commands: RepairStructure, BuildMutant, ComputeBinding).
+- *get_HADDOCK_scores.csh*: Greps the predicted HADDOCK energy scores from the HADDOCK energy files.
 
 #### Notebooks
   
-  - *creating_benchmarking_datasets.ipynb*: Creates SARS_CoV_2_RBD_ACE2_benchmarking_dataset.csv and UEP_SARS_CoV_2_RBD_ACE2_benchmarking_dataset.csv files.  These files contain binding energy change (∆∆G) scores of predictors. 
+  - *creating_benchmarking_datasets.ipynb*: Creates SARS_CoV_2_RBD_ACE2_benchmarking_dataset.csv and UEP_SARS_CoV_2_RBD_ACE2_benchmarking_dataset.csv files. 
   - *performance_analysis.ipynb*: Calculates success rates of predictors by using SARS_CoV_2_RBD_ACE2_benchmarking_dataset.csv and UEP_SARS_CoV_2_RBD_ACE2_benchmarking_dataset.csv files.
   - *metric_analyses_figure_preparation.ipynb*: Performs metric analyses (volume, hydrophobicity, flexibility, and physicochemical property change upon a mutation) and visualizes the outputs as plots.
 
 
-### Files
-
-#### Input files
-  - *ACE2_Experimental_dataset.csv*: Experimental binding valus of ACE2 point mutations.
-  - *RBD_Experimental_dataset.csv*: Experimental binding valus of RBD point mutations.
-  - *HADDOCK_scores.csv*: Binding energy scores (∆G) of HADDOCK on 263 point mutations (+ wild type).
-  - *FoldX_scores.csv*: Binding energy scores (∆G) of FoldX on 263 point mutations, each mutations have their own wild type.
-  - *FoldXwater_scores.csv*: Binding energy scores (∆G) of FoldX with pdbWaters option on 263 point mutations, each mutation has its own wild type.
-  - *EvoEF1_scores.csv*: Binding energy scores (∆G) of EvoEF1 on 263 point mutations (+ wild type).
-  - *MutaBind2_scores.csv*: Binding energy change (∆∆G) scores of MutaBind2 on 263 point mutations.
-  - *SSIPe_result.txt*: Binding energy change (∆∆G) scores of SSIPe on 263 point mutations.
-  - *6m0j_UEP_A_E.csv*: Binding energy change (∆∆G) scores of UEP. 
-  
-#### Output files
-
-  - *SARS-CoV-2-RBD_ACE2_benchmarking_dataset.csv*: Main dataset of this study that contains predicted affinity change (∆∆G) scores of predictors on 263 point mutaions of SARS-CoV-2 RBD and human ACE2 protein complex (PDB ID: 6m0j).
-  - *UEP_SARS-CoV-2-RBD_ACE2_benchmarking_dataset.csv*: UEP calculates ∆∆G when the position of interest has interactions with at least two other residues (highly packed residues within 5Å range). So, UEP can be run on a subset of our benchmark set with 129 mutations (82 ACE2, 47 Spike-RBD mutations).
-  - *Figures.pdf*: Generated metric related figure (Volume, hydrophobicity, flexibility and physicochemical property change) of the study. 
-
-## Clone the repository
-```
-git clone https://github.com/CSB-KaracaLab/ace2-rbd-point-mutation-benchmark
-```
-
 ## Acknowledgements
-All the simulations and analyses were carried out in the HPC resources of Izmir Biomedicine and Genome Center. The visualization page is created by using the open-source codes of Rodrigues *et al.* study (Rodrigues et al., 2020)
+All the calculations are carried out at the HPC resources of Izmir Biomedicine and Genome Center. 
 
 ## Contact
 ezgi.karaca@ibg.edu.tr
   
 ## References
-1.  Chan,K.K., Dorosky,D., Sharma,P., Abbasi,S.A., Dye,J.M., Kranz,D.M., Herbert,A.S. and Procko,E. (2020) Engineering human ACE2 to optimize binding to the spike protein of SARS coronavirus 2. Science (1979), 369, 1261–1265.
-2. Lan,J., Ge,J., Yu,J., Shan,S., Zhou,H., Fan,S., Zhang,Q., Shi,X., Wang,Q., Zhang,L., et al. (2020) Structure of the SARS-CoV-2 spike receptor-binding domain bound to the ACE2 receptor. Nature, 581, 215–220.
-3. Rodrigues,J.P.G.L.M., Barrera-Vilarmau,S., M. C. Teixeira,J., Sorokina,M., Seckel,E., Kastritis,P.L. and Levitt,M. (2020) Insights on cross-species transmission of SARS-CoV-2 from structural modeling. PLOS Computational Biology, 16, e1008449.
- 4. Schymkowitz,J.W.H., Rousseau,F., Martins,I.C., Ferkinghoff-Borg,J., Stricher,F. and Serrano,L. (2005) Prediction of water and metal binding sites and their affinities by using the Fold-X force field. Proceedings of the National Academy of Sciences, 102, 10147–10152.
-5. Starr,T.N., Greaney,A.J., Hilton,S.K., Ellis,D., Crawford,K.H.D., Dingens,A.S., Navarro,M.J., Bowen,J.E., Tortorici,M.A., Walls,A.C., et al. (2020) Deep Mutational Scanning of SARS-CoV-2 Receptor Binding Domain Reveals Constraints on Folding and ACE2 Binding. Cell, 182, 1295-1310.e20.
+Chan,K.K., Dorosky,D., Sharma,P., Abbasi,S.A., Dye,J.M., Kranz,D.M., Herbert,A.S. and Procko,E. (2020) Engineering human ACE2 to optimize binding to the spike protein of SARS coronavirus 2. Science (1979), 369, 1261–1265.
+Starr,T.N., Greaney,A.J., Hilton,S.K., Ellis,D., Crawford,K.H.D., Dingens,A.S., Navarro,M.J., Bowen,J.E., Tortorici,M.A., Walls,A.C., et al. (2020) Deep Mutational Scanning of SARS-CoV-2 Receptor Binding Domain Reveals Constraints on Folding and ACE2 Binding. Cell, 182, 1295-1310.e20.
 
 
