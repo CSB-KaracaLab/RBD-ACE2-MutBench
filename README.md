@@ -10,8 +10,6 @@ For more, please check [![DOI:10.1101/2022.04.18.488633](https://img.shields.io/
 
 ## Folder organization of our repository:
 
-In this work, we used the stand-alone packages of [FoldX](http://foldxsuite.crg.eu/products#foldx),[EvoEF1](https://github.com/tommyhuangthu/EvoEF) and [UEP](https://github.com/pepamengual/UEP) and run [HADDOCK](https://alcazar.science.uu.nl/services/HADDOCK2.2/), [MutaBind2](https://lilab.jysw.suda.edu.cn/research/mutabind2/), and [SSIPe](https://zhanggroup.org/SSIPe/) by using the relevant services to generate mutant models and their scores.  
-
 ### input-output-files/
 
 #### input files
@@ -26,10 +24,9 @@ The mutations are imposed on RBD-ACE2 complex with PDB ID: 6m0j
   - *SARS-CoV-2-RBD_ACE2_benchmarking_dataset.csv*: Predicted affinity change scores (∆∆G) of each predictor. 
   - *UEP_SARS-CoV-2-RBD_ACE2_benchmarking_dataset.csv*: UEP calculates ∆∆G when the position of interest has interactions with at least two other residues (highly packed residues within 5Å range). This is a subset of the main prediction scores with 129 mutations (82 ACE2, 47 Spike-RBD mutations).
 
+### scripts
 
-### Scripts
-
-#### shell scripts
+#### shell_scripts
 
 - *run_FoldX.csh*: Applies single amino acid mutations and computes binding affinity by using FoldX. (Called FoldX commands: Repair, BuildModel, AnalyseComplex).
 - *run_FoldXwater.csh*: The same as above by using FoldX with water option. 
@@ -52,5 +49,6 @@ ezgi.karaca@ibg.edu.tr
 ## References
 Chan,K.K., Dorosky,D., Sharma,P., Abbasi,S.A., Dye,J.M., Kranz,D.M., Herbert,A.S. and Procko,E. (2020) Engineering human ACE2 to optimize binding to the spike protein of SARS coronavirus 2. Science (1979), 369, 1261–1265.
 Starr,T.N., Greaney,A.J., Hilton,S.K., Ellis,D., Crawford,K.H.D., Dingens,A.S., Navarro,M.J., Bowen,J.E., Tortorici,M.A., Walls,A.C., et al. (2020) Deep Mutational Scanning of SARS-CoV-2 Receptor Binding Domain Reveals Constraints on Folding and ACE2 Binding. Cell, 182, 1295-1310.e20.
+We used the stand-alone packages of [FoldX](http://foldxsuite.crg.eu/products#foldx),[EvoEF1](https://github.com/tommyhuangthu/EvoEF) and [UEP](https://github.com/pepamengual/UEP) and run [HADDOCK](https://alcazar.science.uu.nl/services/HADDOCK2.2/), [MutaBind2](https://lilab.jysw.suda.edu.cn/research/mutabind2/), and [SSIPe](https://zhanggroup.org/SSIPe/) by using the relevant services to generate mutant models and their scores.  
 
 
