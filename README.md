@@ -1,5 +1,4 @@
 ![gitub-sars-cov-2](https://user-images.githubusercontent.com/64282221/163183191-17baa15b-f599-4857-abcb-2bd009dadcf5.png)
-Benchmarking the Widely Used Structure-based Binding Affinity Predictors on the Spike-ACE2 Deep Mutational Interaction Set
 
 ## Motivation
 
