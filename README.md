@@ -10,16 +10,17 @@ For more, please check [![DOI:10.1101/2022.04.18.488633](https://img.shields.io/
 
 ## Folder organization of our repository:
 
-### input-output-files/
+### benchmark-data/
 
-#### input files
+#### raw-data
 The mutations are imposed on RBD-ACE2 complex with PDB ID: 6m0j
-  - *ACE2_Experimental_dataset.csv*: DMS binding values of ACE2 179 point mutations.
-  - *RBD_Experimental_dataset.csv*: DMS binding values of 84 RBD point mutations.
+  - *ACE2_DMS_benchmark_set.csv*: DMS binding values of ACE2 179 point mutations.
+  - *RBD_DMS_benchmark_set.csv*: DMS binding values of 84 RBD point mutations.
+  - *[ACE2/RBD]_DMS_all_interface_set*: Complete 988 interfacial mutation set.
   - *HADDOCK_scores.csv* & *FoldX_scores.csv* & *FoldXwater_scores.csv* & *EvoEF1_scores.csv*: HADDOCK, FoldX, FoldXwater, and EvoEF1 mutant scores (263 mutations) + 6m0j wild-type score.
-  - *MutaBind2_scores.csv* & *SSIPe_result.txt* & *6m0j_UEP_A_E.csv*: Predicted ∆∆G changes of each mutation.
+  - *MutaBind2_scores.csv* & *SSIPe_scores.csv* & *UEP_scores.csv*: Predicted ∆∆G changes of each mutation.
   
-#### output files
+#### benchmark
 
   - *SARS-CoV-2-RBD_ACE2_benchmarking_dataset.csv*: Predicted affinity change scores (∆∆G) of each predictor. 
   - *UEP_SARS-CoV-2-RBD_ACE2_benchmarking_dataset.csv*: UEP calculates ∆∆G when the position of interest has interactions with at least two other residues (highly packed residues within 5Å range). This is a subset of the main prediction scores with 129 mutations (82 ACE2, 47 Spike-RBD mutations).
