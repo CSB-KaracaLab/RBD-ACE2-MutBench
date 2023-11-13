@@ -2,7 +2,7 @@
 
 ## Motivation
 
-Since the start of COVID-19 pandemic, a huge effort has been devoted to understanding the Spike(SARS-CoV-2)-ACE2 recognition mechanism. As prominent examples, two deep mutational scanning (DMS) studies (Chan et al., 2020; Starr et al., 2020) traced the impact of all possible mutations/variants across the Spike-ACE2 interface. Expanding on this, we benchmark four widely used structure-based binding affinity predictors (FoldX, EvoEF1, MutaBind2, SSIPe) and two naïve predictors (HADDOCK, UEP) on the variant Spike-ACE2 deep mutational interaction set. Among these approaches, FoldX ranks first with a 64% success rate, followed by EvoEF1 with a 57% accuracy. Upon performing residue-based analyses, we reveal critical algorithmic biases, especially in ranking mutations with increasing/decreasing hydrophobicity/volume. We also show that the approaches using evolutionary-based terms in their scoring functions misclassify most mutations as binding depleting. These observations suggest plenty of room to improve the conventional affinity predictors for guessing the variant-induced binding profile changes of Spike-ACE2. 
+Since the start of COVID-19 pandemic, a huge effort has been devoted to understanding the Spike(SARS-CoV-2)-ACE2 recognition mechanism. As prominent examples, two deep mutational scanning (DMS) studies (Chan et al., 2020; Starr et al., 2020) traced the impact of all possible mutations/variants across the Spike-ACE2 interface. Expanding on this, we benchmark six widely used structure-based binding affinity predictors (FoldX, EvoEF1, MutaBind2, SSIPe, HADDOCK, and UEP) and two recent AI predictors (mmCSM-PPI, TopNetTree) on the variant Spike-ACE2 deep mutational interaction set. Among these approaches, FoldX ranks first with a 64% success rate. Upon performing residue-based analyses, we reveal critical algorithmic biases, especially in ranking mutations with increasing/decreasing hydrophobicity/volume. We also show that the approaches using evolutionary-based terms in their scoring functions misclassify most mutations as binding depleting. AI approaches, mmCSM-PPI and TopNetTree, yielded comparable performances to the force field-based techniques. These observations suggest plenty of room to improve the conventional affinity predictors for guessing the variant-induced binding profile changes of Spike-ACE2. 
 
 Our mutants models and their prediction scores can be visualized at https://rbd-ace2-mutbench.github.io/
 
@@ -18,7 +18,7 @@ The mutations are imposed on RBD-ACE2 complex with PDB ID: 6m0j
   - *RBD_DMS_benchmark_set.csv*: DMS binding values of 84 RBD point mutations.
   - *[ACE2/RBD]_DMS_all_interface_set*: Complete 988 interfacial mutation set.
   - *HADDOCK_scores.csv* & *FoldX_scores.csv* & *FoldXwater_scores.csv* & *EvoEF1_scores.csv*: HADDOCK, FoldX, FoldXwater, and EvoEF1 mutant scores (263 mutations) + 6m0j wild-type score.
-  - *MutaBind2_scores.csv* & *SSIPe_scores.csv* & *UEP_scores.csv*: Predicted ∆∆G changes of each mutation.
+  - *MutaBind2_scores.csv* & *SSIPe_scores.csv* & *UEP_scores.csv* & *TopNetTree_scores.csv* & *mmCSM-PPI_scores.csv* : Predicted ∆∆G changes of each mutation.
   
 #### benchmark
 
